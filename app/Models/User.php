@@ -50,11 +50,9 @@ class User extends Authenticatable
     {
         $firstCharacter = $this->email[0];
 
-        if (is_numeric($firstCharacter)) {
-            $integerToUse = ord(strtolower($firstCharacter)) - 21;
-        } else {
-            $integerToUse = ord(strtolower($firstCharacter)) - 96;
-        }
+        $integerToUse = is_numeric($firstCharacter)
+            ? ord(strtolower($firstCharacter)) - 21
+            : ord(strtolower($firstCharacter)) - 96;
 
         return 'https://www.gravatar.com/avatar/'
             .md5($this->email)
