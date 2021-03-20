@@ -48,7 +48,10 @@
     "autoload-dev": {
         "psr-4": {
             "Tests\\": "tests/"
-        }
+        },
+        "files": [
+            "bootstrap/helpers.php"
+        ]
     },
     "minimum-stability": "dev",
     "prefer-stable": true,

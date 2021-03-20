@@ -20,6 +20,7 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'role_id', // 0 = Admin, 1 = User
     ];
 
     /**
@@ -49,6 +50,16 @@ class User extends Authenticatable
     public function votes()
     {
         return $this->belongsToMany(Idea::class, 'votes');
+    }
+
+    public function isAdmin()
+    {
+        return $this->role_id == 0;
+    }
+
+    public function isUser()
+    {
+        return $this->role_id == 1;
     }
 
     public function getAvatar()

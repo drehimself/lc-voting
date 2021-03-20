@@ -19,19 +19,22 @@
     </head>
     <body class="font-sans bg-gray-background text-gray-900 text-sm">
         <header class="flex flex-col md:flex-row items-center justify-between px-8 py-4">
-            <a href="#"><img src="{{ asset('img/logo.svg') }}" alt="logo"></a>
+            <a href="#" style="font-size:30px;">
+                {{-- <img src="{{ asset('img/logo.svg') }}" alt="logo"> --}}
+                Logo
+            </a>
             <div class="flex items-center mt-2 md:mt-0">
                 @if (Route::has('login'))
                     <div class="px-6 py-4">
                         @auth
-                            <form method="POST" action="{{ route('logout') }}">
+                            <a href="{{ route('dashboard') }}" class="text-sm text-gray-700 underline">Dashboard</a>
+                            <a href="{{ route('logout') }}" class="ml-4 text-sm text-gray-700 underline"
+                                    onclick="event.preventDefault();
+                                                document.getElementById('logout-form').submit();">
+                                {{ __('Log out') }}
+                            </a>
+                            <form method="POST" action="{{ route('logout') }}" id="logout-form">
                                 @csrf
-
-                                <a href="{{ route('logout') }}"
-                                        onclick="event.preventDefault();
-                                                    this.closest('form').submit();">
-                                    {{ __('Log out') }}
-                                </a>
                             </form>
                         @else
                             <a href="{{ route('login') }}" class="text-sm text-gray-700 underline">Log in</a>
