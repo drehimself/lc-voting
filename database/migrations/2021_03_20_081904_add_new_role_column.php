@@ -15,6 +15,7 @@ class AddNewRoleColumn extends Migration
     {
         Schema::table('users', function (Blueprint $table) {
             $table->integer('role_id')->after('email'); //0 Admin, 1 User
+            $table->softDeletes();
         });
     }
 
@@ -26,7 +27,7 @@ class AddNewRoleColumn extends Migration
     public function down()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->dropColumn(['role_id']);
+            $table->dropColumn(['role_id','deleted_at']);
         });
     }
 }

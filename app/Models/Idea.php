@@ -40,14 +40,14 @@ class Idea extends Model
         return $this->belongsTo(Category::class);
     }
 
-    public function status()
-    {
-        return $this->belongsTo(Status::class);
-    }
-
     public function votes()
     {
         return $this->belongsToMany(User::class, 'votes');
+    }
+
+    public function comments()
+    {
+        return $this->hasMany(Comment::class, 'idea_id');
     }
 
     public function isVotedByUser(?User $user)
@@ -82,7 +82,16 @@ class Idea extends Model
         if ($voteToDelete) {
             $voteToDelete->delete();
         } else {
-            throw new VoteNotFoundException;
+            throw new VoteNotFoundException();
         }
+    }
+
+    public function isIdeaOwner()
+    {
+        if (auth()->check()) {    
+            return $this->user_id == auth()->user()->id;
+        }
+
+        return false;
     }
 }

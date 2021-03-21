@@ -27,6 +27,8 @@
     </div> <!-- end filters -->
 
     <div class="ideas-container space-y-6 my-8">
+        <x-alerts></x-alerts>
+
         @foreach ($ideas as $idea)
             <livewire:idea-index
                 :idea="$idea"

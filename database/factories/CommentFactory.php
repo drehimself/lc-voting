@@ -2,17 +2,17 @@
 
 namespace Database\Factories;
 
-use App\Models\Status;
+use App\Models\Comment;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
-class StatusFactory extends Factory
+class CommentFactory extends Factory
 {
     /**
      * The name of the factory's corresponding model.
      *
      * @var string
      */
-    protected $model = Status::class;
+    protected $model = Comment::class;
 
     /**
      * Define the model's default state.
@@ -22,7 +22,9 @@ class StatusFactory extends Factory
     public function definition()
     {
         return [
-            'name' => $this->faker->words(2, true),
+            'user_id' => $this->faker->numberBetween(1, 20),
+            'idea_id' => $this->faker->numberBetween(1, 99),
+            'body' => $this->faker->sentence,
         ];
     }
 }

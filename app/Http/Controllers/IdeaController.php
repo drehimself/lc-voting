@@ -16,12 +16,12 @@ class IdeaController extends Controller
     public function index()
     {
         return view('idea.index', [
-            'ideas' => Idea::with('user', 'category', 'status')
+            'ideas' => Idea::with('user', 'category','comments')
                 ->addSelect(['voted_by_user' => Vote::select('id')
                     ->where('user_id', auth()->id())
                     ->whereColumn('idea_id', 'ideas.id')
                 ])
-                ->withCount('votes')
+                ->withCount('votes','comments')
                 ->orderBy('id', 'desc')
                 ->simplePaginate(Idea::PAGINATION_COUNT),
         ]);
@@ -57,7 +57,7 @@ class IdeaController extends Controller
     public function show(Idea $idea)
     {
         return view('idea.show', [
-            'idea' => $idea,
+            'idea' => $idea->load('comments'),
             'votesCount' => $idea->votes()->count(),
         ]);
     }
