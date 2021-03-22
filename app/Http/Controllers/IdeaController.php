@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
 use App\Models\Idea;
 use App\Models\Vote;
 use Illuminate\Http\Request;
@@ -22,8 +23,21 @@ class IdeaController extends Controller
                     ->whereColumn('idea_id', 'ideas.id')
                 ])
                 ->withCount('votes','comments')
+                ->when(request()->search, function ($query) {
+                    return $query->where('title','LIKE','%'.request()->search .'%');
+                })
+                ->when(request()->category, function ($query) {
+                    return $query->where('category_id',request()->category);
+                })
+                ->when(request()->other_filters, function ($query) {
+                    if (request()->other_filters == 'popular') {
+                        return $query->orderBy('votes_count','desc');
+                    }
+                })
                 ->orderBy('id', 'desc')
                 ->simplePaginate(Idea::PAGINATION_COUNT),
+            'ideasCount' => Idea::count(),
+            'categories' => Category::all(),
         ]);
     }
 
@@ -54,11 +68,17 @@ class IdeaController extends Controller
      * @param  \App\Models\Idea  $idea
      * @return \Illuminate\Http\Response
      */
-    public function show(Idea $idea)
+    public function show($idea)
     {
+        $idea = Idea::with('user', 'category')
+        ->withCount('votes','comments')
+        ->where('slug',$idea)->firstOrFail();
+
         return view('idea.show', [
-            'idea' => $idea->load('comments'),
-            'votesCount' => $idea->votes()->count(),
+            'idea' => $idea,
+            'votesCount' => $idea->votes_count,
+            'commentsCount' => $idea->comments_count,
+            'ideasCount' => Idea::count(),
         ]);
     }
 

@@ -1,4 +1,16 @@
 <x-app-layout>
+    @push('css')
+        <style>
+            .is-admin::before {
+                z-index: 99999;
+            }
+        </style>
+    @endpush
+
+    <x-slot name='ideasTotal'>
+        {{ $ideasCount }}
+    </x-slot>
+    
     <div>
         <a href="/" class="flex items-center font-semibold hover:underline">
             <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -11,14 +23,14 @@
     <livewire:idea-show
         :idea="$idea"
         :votesCount="$votesCount"
+        :commentsCount="$commentsCount"
     />
-    
-    @forelse ($idea->comments as $comment)
+
+    <div class="comments-container relative space-y-6 md:ml-22 pt-4 my-8 mt-1">
         <livewire:idea-comment 
-            :comment="$comment"
+            :idea="$idea"
+            :key="$comment->id"
         />
-    @empty
-        
-    @endforelse
+    </div>
 
 </x-app-layout>

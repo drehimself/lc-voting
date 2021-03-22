@@ -12,12 +12,14 @@ class IdeaIndex extends Component
 {
     public $idea;
     public $votesCount;
+    public $commentsCount;
     public $hasVoted;
 
-    public function mount(Idea $idea, $votesCount)
+    public function mount(Idea $idea, $votesCount,$commentsCount)
     {
         $this->idea = $idea;
         $this->votesCount = $votesCount;
+        $this->commentsCount = $commentsCount;
         $this->hasVoted = $idea->voted_by_user;
     }
 
@@ -53,6 +55,16 @@ class IdeaIndex extends Component
 
     public function deleteIdea(Idea $idea)  
     {   
+        if (! auth()->check()) {
+            return redirect(route('login'));
+        }
+        
+        if ($idea->comments->count() >= 3) {
+            session()->flash('error', 'You cannot delete this idea because it got more then 3 Comments.');
+
+            return back();
+        }
+
         if ($idea->isIdeaOwner()) {
             DB::table('votes')->where('idea_id',$idea->id)->delete();
     

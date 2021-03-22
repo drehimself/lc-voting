@@ -16,6 +16,10 @@
 
         <!-- Scripts -->
         <script src="{{ asset('js/app.js') }}" defer></script>
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js" 
+            integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" 
+            crossorigin="anonymous"></script>
+        @stack('css')
     </head>
     <body class="font-sans bg-gray-background text-gray-900 text-sm">
         <header class="flex flex-col md:flex-row items-center justify-between px-8 py-4">
@@ -80,14 +84,16 @@
                         <div class="my-6 text-center">
                             <a
                                 href="{{ route('login') }}"
-                                class="inline-block justify-center w-1/2 h-11 text-xs bg-blue text-white font-semibold rounded-xl border border-blue hover:bg-blue-hover transition duration-150 ease-in px-6 py-3"
-                            >
+                                class="inline-block justify-center w-1/2 h-11 text-xs 
+                                bg-blue text-white font-semibold rounded-xl border border-blue 
+                                hover:bg-blue-hover transition duration-150 ease-in px-6 py-3">
                                 Login
                             </a>
                             <a
                                 href="{{ route('register') }}"
-                                class="inline-block justify-center w-1/2 h-11 text-xs bg-gray-200 font-semibold rounded-xl border border-gray-200 hover:border-gray-400 transition duration-150 ease-in px-6 py-3 mt-4"
-                            >
+                                class="inline-block justify-center w-1/2 h-11 text-xs 
+                                bg-gray-200 font-semibold rounded-xl border border-gray-200 
+                                hover:border-gray-400 transition duration-150 ease-in px-6 py-3 mt-4">
                                 Sign Up
                             </a>
                         </div>
@@ -98,15 +104,9 @@
             <div class="w-full px-2 md:px-0 md:w-175">
                 <nav class="hidden md:flex items-center justify-between text-xs">
                     <ul class="flex uppercase font-semibold border-b-4 pb-3 space-x-10">
-                        <li><a href="#" class="border-b-4 pb-3 border-blue">All Ideas (87)</a></li>
+                        <li><a href="#" class="border-b-4 pb-3 border-blue">All Ideas ({{ $ideasTotal }})</a></li>
                         <li><a href="#" class="text-gray-400 transition duration-150 ease-in border-b-4 pb-3 hover:border-blue">All Challenges (6)</a></li>
-                        {{-- <li><a href="#" class="text-gray-400 transition duration-150 ease-in border-b-4 pb-3 hover:border-blue">In Progress (1)</a></li> --}}
                     </ul>
-
-                    <!-- <ul class="flex uppercase font-semibold border-b-4 pb-3 space-x-10">
-                        <li><a href="#" class="text-gray-400 transition duration-150 ease-in border-b-4 pb-3 hover:border-blue">Implemented (10)</a></li>
-                        <li><a href="#" class="text-gray-400 transition duration-150 ease-in border-b-4 pb-3 hover:border-blue">Closed (55)</a></li>
-                    </ul> -->
                 </nav>
 
                 <div class="mt-8">
@@ -115,5 +115,7 @@
             </div>
         </main>
         <livewire:scripts />
+
+        @stack('js')
     </body>
 </html>

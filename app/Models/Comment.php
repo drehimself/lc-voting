@@ -16,8 +16,12 @@ class Comment extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function isIdeaOwner()
+    public function isCommentOwner()
     {
+        if (auth()->check()) {
+            return $this->user_id == auth()->user()->id;
+        }
+
         return false;
     }
 }
