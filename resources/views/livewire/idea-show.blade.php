@@ -14,7 +14,9 @@
                     <div class="text-gray-600 mt-3">
                         {{ $idea->description }}
                     </div>
-
+                    @if ($idea->files != '')
+                        <img src="{{ asset($idea->files) }}" alt="" class="md:object-scale-down h-48 mt-3 inset-0.5">
+                    @endif
                     <div class="flex flex-col md:flex-row md:items-center justify-between mt-6">
                         <div class="flex items-center text-xs text-gray-400 font-semibold space-x-2">
                             <div class="hidden md:block font-bold text-gray-900">{{ $idea->user->name }}</div>
@@ -29,45 +31,46 @@
                                 <div class="text-gray-900">Edited: {{ $idea->updated_at->diffForHumans() }}</div>
                             @endif
                         </div>
-                        @if ($idea->isIdeaOwner())
                         <div
-                            class="flex items-center space-x-2 mt-4 md:mt-0"
-                            x-data="{ isOpen: false }">
-                            
-                            <button
-                                class="relative bg-gray-100 hover:bg-gray-200 border rounded-full h-7 transition duration-150 ease-in py-2 px-3"
-                                @click="isOpen = !isOpen">
-                                <svg fill="currentColor" width="24" height="6"><path d="M2.97.061A2.969 2.969 0 000 3.031 2.968 2.968 0 002.97 6a2.97 2.97 0 100-5.94zm9.184 0a2.97 2.97 0 100 5.939 2.97 2.97 0 100-5.939zm8.877 0a2.97 2.97 0 10-.003 5.94A2.97 2.97 0 0021.03.06z" style="color: rgba(163, 163, 163, .5)"></svg>
-                                <ul
-                                    class="absolute w-44 text-left font-semibold bg-white shadow-dialog rounded-xl z-10 py-3 md:ml-8 top-8 md:top-6 right-0 md:left-0"
-                                    x-cloak
-                                    x-show.transition.origin.top.left="isOpen"
-                                    @click.away="isOpen = false"
-                                    @keydown.escape.window="isOpen = false">
-                                        <li><a href="javascript:;" wire:click.prevent="deleteIdea('{{ $idea->id }}')" class="hover:bg-gray-100 block transition duration-150 ease-in px-5 py-3">Delete Post</a></li>
-                                    </ul>
-                                </button>
-                        </div>
-                        @endif
+                        class="flex items-center space-x-2 mt-4 md:mt-0"
+                        x-data="{ isOpen: false }">
+                        
+                        <button
+                        class="relative bg-gray-100 hover:bg-gray-200 border rounded-full h-7 transition duration-150 ease-in py-2 px-3"
+                        @click="isOpen = !isOpen">
+                        <svg fill="currentColor" width="24" height="6"><path d="M2.97.061A2.969 2.969 0 000 3.031 2.968 2.968 0 002.97 6a2.97 2.97 0 100-5.94zm9.184 0a2.97 2.97 0 100 5.939 2.97 2.97 0 100-5.939zm8.877 0a2.97 2.97 0 10-.003 5.94A2.97 2.97 0 0021.03.06z" style="color: rgba(163, 163, 163, .5)"></svg>
+                            <ul
+                            class="absolute w-44 text-left font-semibold bg-white shadow-dialog rounded-xl z-10 py-3 md:ml-8 top-8 md:top-6 right-0 md:left-0"
+                            x-cloak
+                            x-show.transition.origin.top.left="isOpen"
+                            @click.away="isOpen = false"
+                            @keydown.escape.window="isOpen = false">
+                            @if ($idea->isIdeaOwner())
+                                <li><a href="javascript:;" wire:click.prevent="deleteIdea('{{ $idea->id }}')" class="hover:bg-gray-100 block transition duration-150 ease-in px-5 py-3">Delete Post</a></li>
+                            @endif
+                            <li><a href="javascript:;" wire:click.prevent="deleteIdea('{{ $idea->id }}')" class="hover:bg-gray-100 block transition duration-150 ease-in px-5 py-3">Add To Favourite</a></li>
+                            </ul>
+                        </button>
+                    </div>
                             
                         <div class="flex items-center md:hidden mt-4 md:mt-0">
                             <div class="bg-gray-100 text-center rounded-xl h-10 px-4 py-2 pr-8">
                                 <div class="text-sm font-bold leading-none @if($hasVoted) text-blue @endif">{{ $votesCount }}</div>
-                                <div class="text-xxs font-semibold leading-none text-gray-400">Votes</div>
+                                <div class="text-xxs font-semibold leading-none text-gray-400">Likes</div>
                             </div>
                             @if ($hasVoted)
                                 <button
                                     wire:click.prevent="vote"
                                     class="w-20 bg-blue text-white border border-blue font-bold text-xxs uppercase rounded-xl hover:bg-blue-hover transition duration-150 ease-in px-4 py-3 -mx-5"
                                 >
-                                    Voted
+                                    Liked
                                 </button>
                             @else
                                 <button
                                     wire:click.prevent="vote"
                                     class="w-20 bg-gray-200 border border-gray-200 font-bold text-xxs uppercase rounded-xl hover:border-gray-400 transition duration-150 ease-in px-4 py-3 -mx-5"
                                 >
-                                    Vote
+                                    Like
                                 </button>
                             @endif
                         </div>
@@ -103,7 +106,7 @@
                     >
                         <form action="#" class="space-y-4 px-4 py-6">
                             <div>
-                                <textarea name="post_comment" id="post_comment" wire:model.defer="commentBody" cols="30" rows="4" class="w-full text-sm bg-gray-100 rounded-xl placeholder-gray-900 border-none px-4 py-2" placeholder="Go ahead, don't be shy. Share your thoughts..."></textarea>
+                                <textarea name="post_comment" id="post_comment" wire:model.defer="commentBody" cols="30" rows="4" class="w-full text-sm bg-gray-100 rounded-xl placeholder-gray-900 border-none px-4 py-2" placeholder="Suggest ways to improve on this idea"></textarea>
                                 @error('commentBody')
                                     <span class="text-red">{{ $message }}</span>
                                 @enderror
@@ -133,7 +136,7 @@
             <div class="hidden md:flex items-center space-x-3">
                 <div class="bg-white font-semibold text-center rounded-xl px-3 py-2">
                     <div class="text-xl leading-snug @if($hasVoted) text-blue @endif">{{ $votesCount }}</div>
-                    <div class="text-gray-400 text-xs leading-none">Votes</div>
+                    <div class="text-gray-400 text-xs leading-none">Likes</div>
                 </div>
                 @if ($hasVoted)
                     <button
@@ -141,7 +144,7 @@
                         wire:click.prevent="vote"
                         class="w-32 h-11 text-xs bg-blue text-white font-semibold uppercase rounded-xl border border-blue hover:bg-blue-hover transition duration-150 ease-in px-6 py-3"
                     >
-                        <span>Voted</span>
+                        <span>Liked</span>
                     </button>
                 @else
                     <button
@@ -150,7 +153,7 @@
                         class="w-32 h-11 text-xs bg-gray-200 font-semibold uppercase 
                         rounded-xl border border-gray-200 hover:border-gray-400 
                         transition duration-150 ease-in px-6 py-3">
-                        <span>Vote</span>
+                        <span>Like</span>
                     </button>
                 @endif
             </div>

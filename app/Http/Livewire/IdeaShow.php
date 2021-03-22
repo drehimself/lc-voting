@@ -96,6 +96,7 @@ class IdeaShow extends Component
         }
 
         DB::table('votes')->where('idea_id',$idea->id)->delete();
+        DB::table('comments')->where('idea_id',$idea->id)->delete();
 
         if($idea->delete())
         {

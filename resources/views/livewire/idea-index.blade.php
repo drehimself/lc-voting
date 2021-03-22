@@ -16,14 +16,14 @@
     <div class="hidden md:block border-r border-gray-100 px-5 py-8">
         <div class="text-center">
             <div class="font-semibold text-2xl @if ($hasVoted) text-blue @endif">{{ $votesCount }}</div>
-            <div class="text-gray-500">Votes</div>
+            <div class="text-gray-500">Likes</div>
         </div>
 
         <div class="mt-8">
             @if ($hasVoted)
-                <button wire:click.prevent="vote" class="w-20 bg-blue text-white border border-blue hover:bg-blue-hover font-bold text-xxs uppercase rounded-xl transition duration-150 ease-in px-4 py-3">Voted</button>
+                <button wire:click.prevent="vote" class="w-20 bg-blue text-white border border-blue hover:bg-blue-hover font-bold text-xxs uppercase rounded-xl transition duration-150 ease-in px-4 py-3">Liked</button>
             @else
-                <button wire:click.prevent="vote" class="w-20 bg-gray-200 border border-gray-200 hover:border-gray-400 font-bold text-xxs uppercase rounded-xl transition duration-150 ease-in px-4 py-3">Vote</button>
+                <button wire:click.prevent="vote" class="w-20 bg-gray-200 border border-gray-200 hover:border-gray-400 font-bold text-xxs uppercase rounded-xl transition duration-150 ease-in px-4 py-3">Like</button>
             @endif
         </div>
     </div>
@@ -35,7 +35,7 @@
         </div>
         <div class="w-full flex flex-col justify-between mx-2 md:mx-4">
             <h4 class="text-xl font-semibold mt-2 md:mt-0">
-                <a href="{{ route('idea.show', $idea) }}" class="idea-link hover:underline">{{ $idea->title }}</a>
+                <a href="{{ route('idea.show', ['idea' => $idea,'page' => request()->page]) }}" class="idea-link hover:underline">{{ $idea->title }}</a>
             </h4>
             <div class="text-gray-600 mt-3 line-clamp-3">
                 {{ $idea->description }}

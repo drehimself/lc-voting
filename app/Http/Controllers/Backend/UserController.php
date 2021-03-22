@@ -82,12 +82,10 @@ class UserController extends Controller
      */
     public function destroy(User $user)
     {
-        // $user->ideas()->delete();
-        // $user->ideas()->delete();
-        // if($user->delete()) {
-        //     return back()->with('success','User Deleted Successfully');
-        // }else {
-        //     return back()->with('error','Whoops Something Went Wrong');
-        // }
+        if($user->delete()) {
+            return back()->with('success','User Deleted Successfully');
+        }else {
+            return back()->with('error','Whoops Something Went Wrong');
+        }
     }
 }

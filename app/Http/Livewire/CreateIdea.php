@@ -2,33 +2,53 @@
 
 namespace App\Http\Livewire;
 
-use App\Models\Category;
 use App\Models\Idea;
-use Illuminate\Http\Response;
 use Livewire\Component;
+use Illuminate\Http\Response;
+use Livewire\WithFileUploads;
+use Illuminate\Support\Collection;
+use Illuminate\Support\MessageBag;
 
 class CreateIdea extends Component
 {
+    use WithFileUploads;
+
     public $title;
     public $category = 1;
     public $description;
+    public $file;
+    public $categories;
 
     protected $rules = [
-        'title' => 'required|min:4',
-        'category' => 'required|integer',
+        'title'       => 'required|min:4',
+        'category'    => 'required|integer',
         'description' => 'required|min:4',
+        'file'        => 'mimes:jpg,bmp,png|size:1024',
     ];
+
+    public function mount(Collection $categories)
+    {
+        $this->categories = $categories;
+    }
 
     public function createIdea()
     {
         if (auth()->check()) {
-            $this->validate();
+            // $this->validate();
+            if ($this->file != '') {
+                if ($this->file->getSize() > 1000000) {
+                   session()->flash('error_message','File Cannot be greater then 1MB');
+                   return;
+                }    
+                $file = $this->file->storeAs('idea-photos', time().rand().$this->file->getClientOriginalExtension(),'public');
+            }
 
             Idea::create([
-                'user_id' => auth()->id(),
+                'user_id'     => auth()->id(),
                 'category_id' => $this->category,
-                'title' => $this->title,
+                'title'       => $this->title,
                 'description' => $this->description,
+                'files' => $file,
             ]);
 
             session()->flash('success_message', 'Idea was added successfully.');
@@ -44,7 +64,7 @@ class CreateIdea extends Component
     public function render()
     {
         return view('livewire.create-idea', [
-            'categories' => Category::all(),
+            'categories' => $this->categories,
         ]);
     }
 }

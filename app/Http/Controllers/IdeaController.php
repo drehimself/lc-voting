@@ -79,6 +79,7 @@ class IdeaController extends Controller
             'votesCount' => $idea->votes_count,
             'commentsCount' => $idea->comments_count,
             'ideasCount' => Idea::count(),
+            'categories' => Category::all(),
         ]);
     }
 

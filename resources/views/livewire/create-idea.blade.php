@@ -1,4 +1,5 @@
-<form wire:submit.prevent="createIdea" action="#" method="POST" class="space-y-4 px-4 py-6">
+<form wire:submit.prevent="createIdea" action="#" method="POST" class="space-y-4 px-4 py-6"
+enctype="multipart/form-data">
     <div>
         <input wire:model.defer="title" type="text" class="w-full text-sm bg-gray-100 border-none rounded-xl placeholder-gray-900 px-4 py-2" placeholder="Your Idea" required>
         @error('title')
@@ -20,6 +21,22 @@
         @error('description')
             <p class="text-red text-xs mt-1">{{ $message }}</p>
         @enderror
+    </div>
+    <div x-data="{ isUploading: false, progress: 0 }"
+    x-on:livewire-upload-start="isUploading = true"
+    x-on:livewire-upload-finish="isUploading = false"
+    x-on:livewire-upload-error="isUploading = false"
+    x-on:livewire-upload-progress="progress = $event.detail.progress">
+
+        <input type="file" wire:model.defer="file" name="file" class="w-full bg-gray-100 rounded-xl border-none placeholder-gray-900 text-sm px-4 py-2" required>
+        @error('file')
+            <p class="text-red text-xs mt-1">{{ $message }}</p>
+        @enderror
+
+        <!-- Progress Bar -->
+        <div x-show="isUploading">
+            <progress max="100" x-bind:value="progress"></progress>
+        </div>
     </div>
     <div class="flex items-center justify-between space-x-3">
         <button
@@ -44,6 +61,20 @@
                 class="text-green mt-4"
             >
                 {{ session('success_message') }}
+            </div>
+        @endif
+        @if (session('error_message'))
+            <div
+                x-data="{ isVisible: true }"
+                x-init="
+                    setTimeout(() => {
+                        isVisible = false
+                    }, 5000)
+                "
+                x-show.transition.duration.1000ms="isVisible"
+                class="text-red mt-4"
+            >
+                {{ session('error_message') }}
             </div>
         @endif
     </div>

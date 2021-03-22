@@ -19,6 +19,7 @@ class CreateIdeasTable extends Migration
             $table->foreignId('category_id')->constrained();
             $table->string('title');
             $table->string('slug')->nullable();
+            $table->string('files')->nullable();
             $table->text('description');
             $table->timestamps();
         });

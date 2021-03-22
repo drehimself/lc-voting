@@ -91,7 +91,7 @@
                                         data-body="{{ $comment->body }}"
                                         @click="$dispatch('show-modal',{id : $event.target.getAttribute('data-id'),body : $event.target.getAttribute('data-body')})">Edit Comment</a></li>
                                         <li><a href="javascript:;" 
-                                            wire:click="deleteComment('{{ $comment->id }}')" class="hover:bg-gray-100 block transition duration-150 ease-in px-5 py-3">Delete Post</a></li>
+                                            wire:click="deleteComment('{{ $comment->id }}')" class="hover:bg-gray-100 block transition duration-150 ease-in px-5 py-3">Delete Comment</a></li>
                             </ul>
                         </button>
                     </div>

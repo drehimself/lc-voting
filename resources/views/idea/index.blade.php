@@ -1,4 +1,4 @@
-<x-app-layout>
+<x-app-layout :categories='$categories' class="md:w-175" smallClass="w-70">
     <x-slot name='ideasTotal'>
         {{ $ideasCount }}
     </x-slot>
@@ -6,7 +6,7 @@
     <div class="filters flex flex-col md:flex-row space-y-3 md:space-y-0 md:space-x-6">
         <div class="w-full md:w-2/3">
             <select name="category" id="category" class="w-full rounded-xl border-none px-4 py-2">
-                <option value="">Select</option>
+                <option value="">Select Category</option>
                 @forelse ($categories as $category)
                     <option value="{{ $category->id }}"
                         {{ isset(request()->category) && request()->category == $category->id ? 'selected' : '' }}>{{ $category->name }}</option>
@@ -17,7 +17,7 @@
         </div>
         <div class="w-full md:w-2/3">
             <select name="other_filters" id="other_filters" class="w-full rounded-xl border-none px-4 py-2">
-                <option value="">Select</option>
+                <option value="">Select Sort</option>
                 <option value="popular"
                 {{ isset(request()->other_filters) && request()->other_filters == 'popular' ? 'selected' : '' }}>Popular</option>
             </select>
@@ -41,7 +41,7 @@
     </form>
 
     <div class="ideas-container space-y-6 my-8">
-        
+        <x-alerts></x-alerts>
         @foreach ($ideas as $idea)
             <livewire:idea-index
                 :idea="$idea"
