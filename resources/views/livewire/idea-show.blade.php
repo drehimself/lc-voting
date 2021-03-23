@@ -15,7 +15,8 @@
                         {{ $idea->description }}
                     </div>
                     @if ($idea->files != '')
-                        <img src="{{ asset($idea->files) }}" alt="" class="md:object-scale-down h-48 mt-3 inset-0.5">
+                        <img src="{{ asset($idea->files) }}" alt="" x-data="{}" class="md:object-scale-down h-10 mt-5 inset-0.5"
+                        @click="$dispatch('show-image-modal',{image : $event.target.getAttribute('src') })">
                     @endif
                     <div class="flex flex-col md:flex-row md:items-center justify-between mt-6">
                         <div class="flex items-center text-xs text-gray-400 font-semibold space-x-2">
@@ -24,6 +25,14 @@
                             <div>{{ $idea->created_at->diffForHumans() }}</div>
                             <div>&bull;</div>
                             <div>{{ $idea->category->name }}</div>
+                            @auth
+                                <div>&bull;</div>
+                                <div x-data="{isFav : '{{ $hasFav }}'}">
+                                    <span wire:click.prevent="fav('{{ $idea->id }}')">
+                                        <i class="fa fa-heart" style="font-size:18px;" :class="{'text-red' : isFav == true}"></i>
+                                    </span>
+                                </div>
+                            @endauth
                             <div>&bull;</div>
                             <div class="text-gray-900">{{ $commentsCount }} Comments</div>
                             @if ($idea->created_at != $idea->updated_at)
@@ -49,11 +58,6 @@
                             @if ($idea->isIdeaOwner())
                                 <li><a href="javascript:;" wire:click.prevent="deleteIdea('{{ $idea->id }}')" class="hover:bg-gray-100 block transition duration-150 ease-in px-5 py-3">Delete Post</a></li>
                             @endif
-                            @if ($hasFav)
-                            <li><a href="javascript:;" wire:click.prevent="fav('{{ $idea->id }}')" class="hover:bg-gray-100 block transition duration-150 ease-in px-5 py-3">Remove Favourite</a></li>
-                            @else
-                            <li><a href="javascript:;" wire:click.prevent="fav('{{ $idea->id }}')" class="hover:bg-gray-100 block transition duration-150 ease-in px-5 py-3">Add To Favourite</a></li>
-                            @endif    
                         </ul>
                         </button>
                     </div>
@@ -165,4 +169,6 @@
                 @endif
             </div>
         </div> <!-- end buttons-container -->
+
+        <x-image-show-modal></x-image-show-modal>
     </div>

@@ -1,4 +1,4 @@
-<x-app-layout :categories='$categories' class="md:w-175" smallClass="w-70">
+<x-app-layout :categories='$categories' class="md:w-screen" smallClass="w-70">
     <x-slot name='ideasTotal'>
         {{ $ideasCount }}
     </x-slot>
@@ -9,7 +9,7 @@
                 <option value="">Select Category</option>
                 @forelse ($categories as $category)
                     <option value="{{ $category->id }}"
-                        {{ isset(request()->category) && request()->category == $category->id ? 'selected' : '' }}>{{ $category->name }}</option>
+                        {{ isSelected('category',$category->id) }}>{{ $category->name }}</option>
                 @empty
                     
                 @endforelse
@@ -19,7 +19,15 @@
             <select name="other_filters" id="other_filters" class="w-full rounded-xl border-none px-4 py-2">
                 <option value="">Select Sort</option>
                 <option value="popular"
-                {{ isset(request()->other_filters) && request()->other_filters == 'popular' ? 'selected' : '' }}>Popular</option>
+                {{ isSelected('other_filters','popular') }}>Popular</option>
+            </select>
+        </div>
+        <div class="w-full md:w-2/3">
+            <select name="source" id="source" class="w-full rounded-xl border-none px-4 py-2">
+                <option value="">Select Source</option>
+                <option value="user" {{ isSelected('source','user') }}>User</option>
+                <option value="admin" {{ isSelected('source','admin') }}>Admin</option>
+                <option value="brand" {{ isSelected('source','brand') }}>Brands</option>
             </select>
         </div>
         <div class="w-full md:w-2/3 relative">
@@ -42,13 +50,17 @@
 
     <div class="ideas-container space-y-6 my-8">
         <x-alerts></x-alerts>
-        @foreach ($ideas as $idea)
+        @forelse ($ideas as $idea)
             <livewire:idea-index
                 :idea="$idea"
                 :votesCount="$idea->votes_count"
                 :commentsCount="$idea->comments_count"
             />
-        @endforeach
+        @empty
+        <h3 class="text-center text-xl font-semibold">
+            No Idea's found.
+        </h3>
+        @endforelse
     </div> <!-- end ideas-container -->
 
     <div class="my-8">

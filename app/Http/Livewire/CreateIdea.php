@@ -22,8 +22,7 @@ class CreateIdea extends Component
     protected $rules = [
         'title'       => 'required|min:4',
         'category'    => 'required|integer',
-        'description' => 'required|min:4',
-        'file'        => 'mimes:jpg,bmp,png|size:1024',
+        'description' => 'required|min:4'
     ];
 
     public function mount(Collection $categories)
@@ -34,10 +33,12 @@ class CreateIdea extends Component
     public function createIdea()
     {
         if (auth()->check()) {
-            // $this->validate();
+            
+            $this->validate();
+
             if ($this->file != '') {
                 if ($this->file->getSize() > 1000000) {
-                   session()->flash('error_message','File Cannot be greater then 1MB');
+                   session()->flash('error','File Cannot be greater then 1MB');
                    return;
                 }    
                 $file = $this->file->storeAs('idea-photos', time().rand().$this->file->getClientOriginalExtension(),'public');
@@ -51,7 +52,7 @@ class CreateIdea extends Component
                 'files' => $file ?? null,
             ]);
 
-            session()->flash('success_message', 'Idea was added successfully.');
+            session()->flash('success', 'Idea was added successfully.');
 
             $this->reset();
 

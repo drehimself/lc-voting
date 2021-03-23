@@ -31,6 +31,24 @@ class IdeaController extends Controller
                 ->when(request()->category, function ($query) {
                     return $query->where('category_id',request()->category);
                 })
+                ->when(request()->source, function ($query) {
+                    $role = '1';
+                    switch (request()->source) {
+                        case 'user':
+                            $role = 1;
+                            break;
+                        case 'admin':
+                            $role = 0;
+                            break;
+                        case 'brand':
+                            $role = 2;
+                            break;
+                    }
+
+                    return $query->whereHas('user',function($query) use ($role) {
+                        return $query->where('role_id',$role);
+                    });
+                })
                 ->when(request()->other_filters, function ($query) {
                     if (request()->other_filters == 'popular') {
                         return $query->orderBy('votes_count','desc');
@@ -125,7 +143,7 @@ class IdeaController extends Controller
      */
     public function showFavourites()
     {
-        $favs = auth()->user()->favourites()->paginate(2);
+        $favs = auth()->user()->favourites()->latest()->paginate();
 
         return view('idea.favourites', [
             'ideasCount' => Idea::count(),

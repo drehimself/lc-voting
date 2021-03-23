@@ -9,6 +9,7 @@ use App\Exceptions\VoteNotFoundException;
 use App\Models\Comment;
 use App\Models\Idea;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 use Livewire\Component;
 
 class IdeaShow extends Component
@@ -128,6 +129,7 @@ class IdeaShow extends Component
 
         DB::table('votes')->where('idea_id',$idea->id)->delete();
         DB::table('comments')->where('idea_id',$idea->id)->delete();
+        Storage::disk('public')->delete($idea->files);
 
         if($idea->delete())
         {

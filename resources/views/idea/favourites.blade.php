@@ -1,4 +1,4 @@
-<x-app-layout :categories='$categories' class="md:w-175" smallClass="w-70">
+<x-app-layout :categories='$categories' class="md:w-screen" smallClass="w-70">
     <x-slot name='ideasTotal'>
         {{ $ideasCount }}
     </x-slot>
@@ -31,7 +31,9 @@
                                 <td class="px-5 py-5 border-b border-gray bg-white text-sm">
                                     <div class="flex items-center">
                                         <div class="flex-shrink-0 w-full h-10 font-semibold">
-                                            <h3>{{ $fav->title }}</h3>
+                                            <a href="{{ route('idea.show',['idea' => $fav->slug]) }}">
+                                                <h3>{{ $fav->title }}</h3>
+                                            </a>
                                         </div>
                                     </div>
                                 </td>

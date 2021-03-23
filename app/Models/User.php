@@ -21,7 +21,7 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
-        'role_id', // 0 = Admin, 1 = User
+        'role_id', // 0 = Admin, 1 = User, 2 = Brands'
     ];
 
     /**

@@ -8,6 +8,11 @@ function roleName($role)
     ];
 }
 
+function isSelected($value,$match)
+{
+    return isset(request()->{$value}) && request()->{$value} == $match ? 'selected' : '';    
+}
+
 function formatBytes($bytes, $force_unit = NULL, $format = NULL, $si = TRUE)
 {
     // Format string
