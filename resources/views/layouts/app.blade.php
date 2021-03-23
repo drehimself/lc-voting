@@ -105,9 +105,11 @@
             <div class="w-full px-2 md:px-0 {{ $class }}">
                 <nav class="hidden md:flex items-center justify-between text-xs">
                     <ul class="flex uppercase font-semibold border-b-4 pb-3 space-x-10">
-                        <li><a href="#" class="border-b-4 pb-3 border-blue">All Ideas ({{ $ideasTotal }})</a></li>
+                        <li><a href="{{ route('idea.index') }}" class="pb-3 border-blue {{ request()->routeIs('idea.index') ? 'border-b-4' : '' }}"">All Ideas ({{ $ideasTotal }})</a></li>
                         <li><a href="#" class="text-gray-400 transition duration-150 ease-in border-b-4 pb-3 hover:border-blue">All Challenges (6)</a></li>
-                        <li><a href="#" class="text-gray-400 transition duration-150 ease-in border-b-4 pb-3 hover:border-blue">Favourites</a></li>
+                        @auth
+                            <li><a href="{{ route('favourites.list') }}" class="text-gray-400 transition duration-150 ease-in pb-3 hover:border-blue {{ request()->routeIs('favourites.list') ? 'border-blue border-b-4' : '' }}">Favourites</a></li>
+                        @endauth
                     </ul>
                 </nav>
 

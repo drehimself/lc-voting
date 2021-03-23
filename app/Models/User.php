@@ -48,6 +48,11 @@ class User extends Authenticatable
         return $this->hasMany(Idea::class);
     }
 
+    public function favourites()
+    {
+        return $this->belongsToMany(Idea::class,'favourites')->withPivot('created_at');
+    }
+
     public function votes()
     {
         return $this->belongsToMany(Idea::class, 'votes');

@@ -16,6 +16,8 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', [IdeaController::class, 'index'])->name('idea.index');
 Route::get('/ideas/{idea:slug}', [IdeaController::class, 'show'])->name('idea.show');
+Route::get('/user/favourites',[IdeaController::class,'showFavourites'])->name('favourites.list')->middleware('auth');
+Route::get('/user/remove/favourites/{idea}',[IdeaController::class,'removeFav'])->name('favourites.remove')->middleware('auth');
 
 require __DIR__.'/auth.php';
 require __DIR__.'/admin.php';

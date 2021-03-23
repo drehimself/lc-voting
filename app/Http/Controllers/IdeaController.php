@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Exceptions\FavNotFoundException;
 use App\Models\Category;
+use App\Models\Favourite;
 use App\Models\Idea;
 use App\Models\Vote;
 use Illuminate\Http\Request;
@@ -115,5 +117,40 @@ class IdeaController extends Controller
     public function destroy(Idea $idea)
     {
         //
+    }
+
+    /**
+     * Show Fav Idea's
+     * 
+     */
+    public function showFavourites()
+    {
+        $favs = auth()->user()->favourites()->paginate(2);
+
+        return view('idea.favourites', [
+            'ideasCount' => Idea::count(),
+            'categories' => Category::all(),
+            'favs' => $favs,
+        ]);
+    }
+
+    /**
+     * Remove Fav Idea's
+     * 
+     */
+    public function removeFav($idea)
+    {
+        $favToRemove = Favourite::where('idea_id', $idea)
+            ->where('user_id', auth()->user()->id)
+            ->first();
+
+        if ($favToRemove) {
+            $favToRemove->delete();
+
+            return back()->with('success','Removed From Favourites Successfully');
+        } else {
+            throw new FavNotFoundException();
+            return back()->with('error','Whoops Something Went Wrong.');
+        }
     }
 }

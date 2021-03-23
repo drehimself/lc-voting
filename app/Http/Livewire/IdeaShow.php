@@ -2,7 +2,9 @@
 
 namespace App\Http\Livewire;
 
+use App\Exceptions\DuplicateFavException;
 use App\Exceptions\DuplicateVoteException;
+use App\Exceptions\FavNotFoundException;
 use App\Exceptions\VoteNotFoundException;
 use App\Models\Comment;
 use App\Models\Idea;
@@ -15,6 +17,7 @@ class IdeaShow extends Component
     public $votesCount;
     public $commentsCount;
     public $hasVoted;
+    public $hasFav;
     public $commentBody;
 
     protected $listeners = ['comment-deleted' => 'decrementTheCommentCount'];
@@ -25,6 +28,7 @@ class IdeaShow extends Component
         $this->votesCount = $votesCount;
         $this->commentsCount = $commentsCount;
         $this->hasVoted = $idea->isVotedByUser(auth()->user());
+        $this->hasFav = $idea->isFavByUser(auth()->user());
     }
 
     public function decrementTheCommentCount()
@@ -54,6 +58,33 @@ class IdeaShow extends Component
             }
             $this->votesCount++;
             $this->hasVoted = true;
+        }
+    }
+
+    public function fav()
+    {
+        if (! auth()->check()) {
+            return redirect(route('login'));
+        }
+
+        if ($this->hasFav) {
+            try {
+                $this->idea->removeFavourite(auth()->user());
+            } catch (FavNotFoundException $e) {
+                // do nothing
+            }
+
+            session()->flash('success', 'Successfully removed from Favourites.');
+            $this->hasFav = false;
+        } else {
+            try {
+                $this->idea->Fav(auth()->user());
+            } catch (DuplicateFavException $e) {
+                // do nothing
+            }
+            session()->flash('success', 'Successfully added to Favourites.');
+
+            $this->hasFav = true;
         }
     }
 

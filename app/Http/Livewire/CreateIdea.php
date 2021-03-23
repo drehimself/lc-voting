@@ -48,7 +48,7 @@ class CreateIdea extends Component
                 'category_id' => $this->category,
                 'title'       => $this->title,
                 'description' => $this->description,
-                'files' => $file,
+                'files' => $file ?? null,
             ]);
 
             session()->flash('success_message', 'Idea was added successfully.');

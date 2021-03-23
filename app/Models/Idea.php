@@ -2,7 +2,9 @@
 
 namespace App\Models;
 
+use App\Exceptions\DuplicateFavException;
 use App\Exceptions\DuplicateVoteException;
+use App\Exceptions\FavNotFoundException;
 use App\Exceptions\VoteNotFoundException;
 use Cviebrock\EloquentSluggable\Sluggable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -83,6 +85,42 @@ class Idea extends Model
             $voteToDelete->delete();
         } else {
             throw new VoteNotFoundException();
+        }
+    }
+
+    public function isFavByUser(?User $user)
+    {
+        if (!$user) {
+            return false;
+        }
+
+        return Favourite::where('user_id', $user->id)
+            ->where('idea_id', $this->id)
+            ->exists();
+    }
+
+    public function Fav(User $user)
+    {
+        if ($this->isFavByUser($user)) {
+            throw new DuplicateFavException();
+        }
+
+        Favourite::create([
+            'idea_id' => $this->id,
+            'user_id' => $user->id,
+        ]);
+    }
+
+    public function removeFavourite(User $user)
+    {
+        $favToRemove = Favourite::where('idea_id', $this->id)
+            ->where('user_id', $user->id)
+            ->first();
+
+        if ($favToRemove) {
+            $favToRemove->delete();
+        } else {
+            throw new FavNotFoundException();
         }
     }
 

@@ -28,13 +28,13 @@ enctype="multipart/form-data">
     x-on:livewire-upload-error="isUploading = false"
     x-on:livewire-upload-progress="progress = $event.detail.progress">
 
-        <input type="file" wire:model.defer="file" name="file" class="w-full bg-gray-100 rounded-xl border-none placeholder-gray-900 text-sm px-4 py-2" required>
+        <input type="file" wire:model.defer="file" name="file" class="w-full bg-gray-100 rounded-xl border-none placeholder-gray-900 text-sm px-4 py-2">
         @error('file')
             <p class="text-red text-xs mt-1">{{ $message }}</p>
         @enderror
 
         <!-- Progress Bar -->
-        <div x-show="isUploading">
+        <div x-show="isUploading" x-cloak>
             <progress max="100" x-bind:value="progress"></progress>
         </div>
     </div>

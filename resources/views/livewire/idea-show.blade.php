@@ -31,8 +31,9 @@
                                 <div class="text-gray-900">Edited: {{ $idea->updated_at->diffForHumans() }}</div>
                             @endif
                         </div>
-                        <div
-                        class="flex items-center space-x-2 mt-4 md:mt-0"
+
+                        @auth    
+                        <div class="flex items-center space-x-2 mt-4 md:mt-0"
                         x-data="{ isOpen: false }">
                         
                         <button
@@ -48,10 +49,15 @@
                             @if ($idea->isIdeaOwner())
                                 <li><a href="javascript:;" wire:click.prevent="deleteIdea('{{ $idea->id }}')" class="hover:bg-gray-100 block transition duration-150 ease-in px-5 py-3">Delete Post</a></li>
                             @endif
-                            <li><a href="javascript:;" wire:click.prevent="deleteIdea('{{ $idea->id }}')" class="hover:bg-gray-100 block transition duration-150 ease-in px-5 py-3">Add To Favourite</a></li>
-                            </ul>
+                            @if ($hasFav)
+                            <li><a href="javascript:;" wire:click.prevent="fav('{{ $idea->id }}')" class="hover:bg-gray-100 block transition duration-150 ease-in px-5 py-3">Remove Favourite</a></li>
+                            @else
+                            <li><a href="javascript:;" wire:click.prevent="fav('{{ $idea->id }}')" class="hover:bg-gray-100 block transition duration-150 ease-in px-5 py-3">Add To Favourite</a></li>
+                            @endif    
+                        </ul>
                         </button>
                     </div>
+                    @endauth
                             
                         <div class="flex items-center md:hidden mt-4 md:mt-0">
                             <div class="bg-gray-100 text-center rounded-xl h-10 px-4 py-2 pr-8">
@@ -142,8 +148,9 @@
                     <button
                         type="button"
                         wire:click.prevent="vote"
-                        class="w-32 h-11 text-xs bg-blue text-white font-semibold uppercase rounded-xl border border-blue hover:bg-blue-hover transition duration-150 ease-in px-6 py-3"
-                    >
+                        class="w-32 h-11 text-xs bg-blue text-white font-semibold uppercase rounded-xl 
+                            border border-blue hover:bg-blue-hover transition duration-150 
+                            ease-in px-6 py-3">
                         <span>Liked</span>
                     </button>
                 @else
