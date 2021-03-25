@@ -15,7 +15,7 @@
                         {{ $idea->description }}
                     </div>
                     @if ($idea->files != '')
-                        <img src="{{ asset($idea->files) }}" alt="" x-data="{}" class="md:object-scale-down h-10 mt-5 inset-0.5"
+                        <img src="{{ asset('storage/'.$idea->files) }}" alt="" x-data="{}" class="md:object-scale-down h-10 mt-5 inset-0.5"
                         @click="$dispatch('show-image-modal',{image : $event.target.getAttribute('src') })">
                     @endif
                     <div class="flex flex-col md:flex-row md:items-center justify-between mt-6">
