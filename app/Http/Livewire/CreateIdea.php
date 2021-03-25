@@ -41,7 +41,7 @@ class CreateIdea extends Component
                    session()->flash('error','File Cannot be greater then 1MB');
                    return;
                 }    
-                $file = $this->file->storeAs('idea-photos', time().rand().$this->file->getClientOriginalExtension(),'public');
+                $file = $this->file->storeAs('idea-photos', time().rand().'.'.$this->file->getClientOriginalExtension(),'public');
             }
 
             Idea::create([
