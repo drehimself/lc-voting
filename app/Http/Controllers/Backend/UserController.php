@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
+use Illuminate\Pagination\Paginator;
 use Illuminate\Http\Request;
 
 class UserController extends Controller
@@ -15,7 +16,9 @@ class UserController extends Controller
      */
     public function index()
     {
-        $users = User::all();
+        Paginator::useBootstrap();
+        
+        $users = User::latest()->paginate();
         return view('backend.users.index',compact('users'));
     }
 

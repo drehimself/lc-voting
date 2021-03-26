@@ -24,12 +24,9 @@ class VoteShowPageTest extends TestCase
 
         $categoryOne = Category::factory()->create(['name' => 'Category 1']);
 
-        $statusOpen = Status::factory()->create(['name' => 'Open', 'classes' => 'bg-gray-200']);
-
         $idea = Idea::factory()->create([
             'user_id' => $user->id,
             'category_id' => $categoryOne->id,
-            'status_id' => $statusOpen->id,
             'title' => 'My First Idea',
             'description' => 'Description for my first idea',
         ]);
@@ -46,12 +43,9 @@ class VoteShowPageTest extends TestCase
 
         $categoryOne = Category::factory()->create(['name' => 'Category 1']);
 
-        $statusOpen = Status::factory()->create(['name' => 'Open', 'classes' => 'bg-gray-200']);
-
         $idea = Idea::factory()->create([
             'user_id' => $user->id,
             'category_id' => $categoryOne->id,
-            'status_id' => $statusOpen->id,
             'title' => 'My First Idea',
             'description' => 'Description for my first idea',
         ]);
@@ -77,12 +71,9 @@ class VoteShowPageTest extends TestCase
 
         $categoryOne = Category::factory()->create(['name' => 'Category 1']);
 
-        $statusOpen = Status::factory()->create(['name' => 'Open', 'classes' => 'bg-gray-200']);
-
         $idea = Idea::factory()->create([
             'user_id' => $user->id,
             'category_id' => $categoryOne->id,
-            'status_id' => $statusOpen->id,
             'title' => 'My First Idea',
             'description' => 'Description for my first idea',
         ]);
@@ -101,12 +92,9 @@ class VoteShowPageTest extends TestCase
 
         $categoryOne = Category::factory()->create(['name' => 'Category 1']);
 
-        $statusOpen = Status::factory()->create(['name' => 'Open', 'classes' => 'bg-gray-200']);
-
         $idea = Idea::factory()->create([
             'user_id' => $user->id,
             'category_id' => $categoryOne->id,
-            'status_id' => $statusOpen->id,
             'title' => 'My First Idea',
             'description' => 'Description for my first idea',
         ]);
@@ -132,12 +120,9 @@ class VoteShowPageTest extends TestCase
 
         $categoryOne = Category::factory()->create(['name' => 'Category 1']);
 
-        $statusOpen = Status::factory()->create(['name' => 'Open', 'classes' => 'bg-gray-200']);
-
         $idea = Idea::factory()->create([
             'user_id' => $user->id,
             'category_id' => $categoryOne->id,
-            'status_id' => $statusOpen->id,
             'title' => 'My First Idea',
             'description' => 'Description for my first idea',
         ]);
@@ -157,12 +142,9 @@ class VoteShowPageTest extends TestCase
 
         $categoryOne = Category::factory()->create(['name' => 'Category 1']);
 
-        $statusOpen = Status::factory()->create(['name' => 'Open', 'classes' => 'bg-gray-200']);
-
         $idea = Idea::factory()->create([
             'user_id' => $user->id,
             'category_id' => $categoryOne->id,
-            'status_id' => $statusOpen->id,
             'title' => 'My First Idea',
             'description' => 'Description for my first idea',
         ]);
@@ -195,12 +177,9 @@ class VoteShowPageTest extends TestCase
 
         $categoryOne = Category::factory()->create(['name' => 'Category 1']);
 
-        $statusOpen = Status::factory()->create(['name' => 'Open', 'classes' => 'bg-gray-200']);
-
         $idea = Idea::factory()->create([
             'user_id' => $user->id,
             'category_id' => $categoryOne->id,
-            'status_id' => $statusOpen->id,
             'title' => 'My First Idea',
             'description' => 'Description for my first idea',
         ]);

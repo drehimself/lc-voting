@@ -1,39 +1,41 @@
 @extends('backend.layouts.app',[
-    'page' => 'User'
+    'page' => 'Ideas'
 ])
+
 @section('content')
     <!-- DataTales Example -->
     <div class="card shadow mb-4">
         <div class="card-header py-3">
-            <h6 class="m-0 font-weight-bold text-primary">Users | List</h6>
+            <h6 class="m-0 font-weight-bold text-primary">Ideas | List</h6>
         </div>
         <div class="card-body">
             <div class="table-responsive">
                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                     <thead>
                         <tr>
-                            <th>Name</th>
-                            <th>Email</th>
-                            <th>Role</th>
+                            <th>Title</th>
+                            <th>Spam Count</th>
                             <th>Created at</th>
                             <th>Action</th>
                         </tr>
                     </thead>
                     <tbody>
-                        @forelse ($users as $user)
+                        @forelse ($ideas as $idea)
                             <tr>
-                                <td>{{ $user->name }}</td>
-                                <td>{{ $user->email }}</td>
                                 <td>
-                                    <span class="btn btn-{{ roleName($user->role_id)['class'] }}">
-                                        {{ roleName($user->role_id)['name'] }}
+                                    <a href="{{ route('idea.show',['idea' => $idea->slug]) }}">
+                                        {{ $idea->title }}
+                                    </a>
+                                </td>
+                                <td>
+                                    <span class="btn btn-danger">
+                                        {{ $idea->spams_count }}
                                     </span>
                                 </td>
-                                <td>{{ $user->created_at->format('m/d/Y') }}</td>
+                                <td>{{ $idea->created_at->format('m/d/Y') }}</td>
                                 <td>
-                                    <a href="" class="btn btn-info">Edit</a>
                                     <a href="javascript:;" class="btn btn-danger btn-icon-split delete-row"
-                                    data-id="{{ $user->id }}" data-url="{{ route('users.destroy',['user' => $user->id]) }}" data-method="DELETE">
+                                    data-id="{{ $idea->id }}" data-url="{{ route('spam.ideas.destroy',['idea' => $idea->id]) }}" data-method="DELETE">
                                         <span class="icon text-white-50">
                                             <i class="fas fa-trash"></i>
                                         </span>
@@ -47,8 +49,7 @@
                     </tbody>
                 </table>
             </div>
-
-            {{ $users->links() }}
+            {{ $ideas->links() }}
         </div>
     </div>
 @endsection

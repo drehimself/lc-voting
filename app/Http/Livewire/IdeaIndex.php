@@ -2,7 +2,9 @@
 
 namespace App\Http\Livewire;
 
+use App\Exceptions\DuplicateFavException;
 use App\Exceptions\DuplicateVoteException;
+use App\Exceptions\FavNotFoundException;
 use App\Exceptions\VoteNotFoundException;
 use App\Models\Idea;
 use Illuminate\Support\Facades\DB;
@@ -14,6 +16,7 @@ class IdeaIndex extends Component
     public $votesCount;
     public $commentsCount;
     public $hasVoted;
+    public $hasFav;
 
     public function mount(Idea $idea, $votesCount,$commentsCount)
     {
@@ -21,6 +24,7 @@ class IdeaIndex extends Component
         $this->votesCount = $votesCount;
         $this->commentsCount = $commentsCount;
         $this->hasVoted = $idea->voted_by_user;
+        $this->hasFav = $idea->isFavByUser(auth()->user());
     }
 
     public function vote()
@@ -45,6 +49,33 @@ class IdeaIndex extends Component
             }
             $this->votesCount++;
             $this->hasVoted = true;
+        }
+    }
+
+    public function fav()
+    {
+        if (! auth()->check()) {
+            return redirect(route('login'));
+        }
+
+        if ($this->hasFav) {
+            try {
+                $this->idea->removeFavourite(auth()->user());
+            } catch (FavNotFoundException $e) {
+                // do nothing
+            }
+
+            session()->flash('success', 'Successfully removed from Favourites.');
+            $this->hasFav = false;
+        } else {
+            try {
+                $this->idea->Fav(auth()->user());
+            } catch (DuplicateFavException $e) {
+                // do nothing
+            }
+            session()->flash('success', 'Successfully added to Favourites.');
+
+            $this->hasFav = true;
         }
     }
 

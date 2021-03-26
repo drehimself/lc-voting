@@ -19,7 +19,7 @@ class IdeaController extends Controller
     public function index()
     {
         return view('idea.index', [
-            'ideas' => Idea::with('user', 'category','comments')
+            'ideas' => Idea::with('user', 'category','comments','favourites')
                 ->addSelect(['voted_by_user' => Vote::select('id')
                     ->where('user_id', auth()->id())
                     ->whereColumn('idea_id', 'ideas.id')
@@ -90,7 +90,7 @@ class IdeaController extends Controller
      */
     public function show($idea)
     {
-        $idea = Idea::with('user', 'category')
+        $idea = Idea::with('user', 'category','favourites','spams')
         ->withCount('votes','comments')
         ->where('slug',$idea)->firstOrFail();
 

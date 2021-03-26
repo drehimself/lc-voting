@@ -1,5 +1,5 @@
 <!-- edit modal --->
-<div class="modal h-screen w-full fixed left-0 top-0 flex justify-center items-center bg-black bg-opacity-50"
+<div class="modal hidden h-screen w-full fixed left-0 top-0 flex justify-center items-center bg-black bg-opacity-50"
     wire:ignore
     style="z-index: 9999999"
     x-cloak

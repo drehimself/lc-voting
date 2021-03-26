@@ -3,8 +3,10 @@
 namespace App\Http\Livewire;
 
 use App\Exceptions\DuplicateFavException;
+use App\Exceptions\DuplicateSpamException;
 use App\Exceptions\DuplicateVoteException;
 use App\Exceptions\FavNotFoundException;
+use App\Exceptions\SpamNotFoundException;
 use App\Exceptions\VoteNotFoundException;
 use App\Models\Comment;
 use App\Models\Idea;
@@ -19,6 +21,7 @@ class IdeaShow extends Component
     public $commentsCount;
     public $hasVoted;
     public $hasFav;
+    public $hasMarkedSpam;
     public $commentBody;
 
     protected $listeners = ['comment-deleted' => 'decrementTheCommentCount'];
@@ -30,6 +33,7 @@ class IdeaShow extends Component
         $this->commentsCount = $commentsCount;
         $this->hasVoted = $idea->isVotedByUser(auth()->user());
         $this->hasFav = $idea->isFavByUser(auth()->user());
+        $this->hasMarkedSpam = $idea->isSpammedByUser(auth()->user());
     }
 
     public function decrementTheCommentCount()
@@ -86,6 +90,33 @@ class IdeaShow extends Component
             session()->flash('success', 'Successfully added to Favourites.');
 
             $this->hasFav = true;
+        }
+    }
+
+    public function markAsSpam()
+    {
+        if (! auth()->check()) {
+            return redirect(route('login'));
+        }
+
+        if ($this->hasMarkedSpam) {
+            try {
+                $this->idea->removeSpam(auth()->user());
+            } catch (SpamNotFoundException $e) {
+                // do nothing
+            }
+
+            session()->flash('success', 'Successfully un-marked from    Spam.');
+            $this->hasMarkedSpam = false;
+        } else {
+            try {
+                $this->idea->Spammed(auth()->user());
+            } catch (DuplicateSpamException $e) {
+                // do nothing
+            }
+            session()->flash('success', 'Successfully marked as Spam.');
+
+            $this->hasMarkedSpam = true;
         }
     }
 

@@ -4,7 +4,7 @@
         const clicked = $event.target
         const target = clicked.tagName.toLowerCase()
 
-        const ignores = ['button', 'svg', 'path', 'a']
+        const ignores = ['button', 'svg', 'path', 'a','span','i']
 
         if (! ignores.includes(target)) {
             clicked.closest('.idea-container').querySelector('.idea-link').click()
@@ -45,6 +45,14 @@
                     <div>{{ $idea->created_at->diffForHumans() }}</div>
                     <div>&bull;</div>
                     <div>{{ $idea->category->name }}</div>
+                    @auth
+                        <div>&bull;</div>
+                        <div x-data="{isFav : '{{ $hasFav }}'}">
+                            <span wire:click.prevent="fav('{{ $idea->id }}')">
+                                <i class="fa fa-heart" style="font-size:18px;" :class="{'text-red' : isFav == true}"></i>
+                            </span>
+                        </div>
+                    @endauth
                     <div>&bull;</div>
                     <div class="text-gray-900">{{ $commentsCount }} Comments</div>
                     @if ($idea->created_at != $idea->updated_at)

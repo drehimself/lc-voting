@@ -33,7 +33,15 @@
     <li class="nav-item">
         <a class="nav-link" href="{{ route('users.index') }}">
             <i class="fas fa-fw fa-users"></i>
-            <span>Users</span></a>
+            <span>Users</span>
+        </a>
+    </li>
+
+    <li class="nav-item">
+        <a href="{{ route('spam.ideas') }}" class="nav-link">
+            <i class="far fa-angry"></i>
+            <span>Spam</span>
+        </a>
     </li>
     @endif
 
