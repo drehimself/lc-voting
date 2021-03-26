@@ -85,7 +85,7 @@
                         <li><a href="{{ route('idea.index') }}" class="pb-3 border-blue {{ request()->routeIs('idea.index') ? 'border-b-4' : '' }}"">All Ideas ({{ $ideasTotal }})</a></li>
                         <li><a href="#" class="text-gray-400 transition duration-150 ease-in border-b-4 pb-3 hover:border-blue">All Challenges (6)</a></li>
                         @auth
-                            <li><a href="{{ route('favourites.list') }}" class="text-gray-400 transition duration-150 ease-in pb-3 hover:border-blue {{ request()->routeIs('favourites.list') ? 'border-blue border-b-4' : '' }}">Favourites</a></li>
+                            <li><a href="{{ route('favourites.list') }}" class="text-gray-400 transition duration-150 ease-in pb-3 hover:border-blue {{ request()->routeIs('favourites.list') ? 'border-blue border-b-4' : '' }}">Favorite</a></li>
                         @endauth
                     </ul>
                 </nav>
