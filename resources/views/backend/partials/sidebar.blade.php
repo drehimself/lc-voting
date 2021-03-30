@@ -38,7 +38,7 @@
     </li>
 
     <li class="nav-item">
-        <a href="{{ route('spam.ideas') }}" class="nav-link">
+        <a href="{{ route('spam.ideas',['filter' => 'idea']) }}" class="nav-link">
             <i class="far fa-angry"></i>
             <span>Spam</span>
         </a>

@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateIdeasTable extends Migration
+class CreateChallengeVotesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,14 +13,11 @@ class CreateIdeasTable extends Migration
      */
     public function up()
     {
-        Schema::create('ideas', function (Blueprint $table) {
+        Schema::create('challenge_votes', function (Blueprint $table) {
             $table->id();
+            $table->unique(['challenge_id', 'user_id']);
+            $table->foreignId('challenge_id')->constrained();
             $table->foreignId('user_id')->constrained();
-            $table->foreignId('category_id')->constrained();
-            $table->string('title');
-            $table->string('slug')->nullable();
-            $table->text('files')->nullable();
-            $table->text('description');
             $table->timestamps();
         });
     }
@@ -32,6 +29,6 @@ class CreateIdeasTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('ideas');
+        Schema::dropIfExists('challenge_votes');
     }
 }

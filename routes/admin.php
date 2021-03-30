@@ -18,6 +18,7 @@ Route::group(['middleware' => ['auth']], function () {
         Route::resource('users', UserController::class);
         Route::get('/spammed-ideas',[IdeaSpamController::class,'index'])->name('spam.ideas');
         Route::delete('/spammed-ideas/delete/{idea}',[IdeaSpamController::class,'destroy'])->name('spam.ideas.destroy');
+        Route::delete('/spammed-challenges/delete/{challenge}',[IdeaSpamController::class,'destroyChallenge'])->name('spam.challengs.destroy');
     });
 
 });

@@ -80,12 +80,18 @@
         <main class="container mx-auto max-w-custom flex flex-col md:flex-row">
             
             <div class="w-full px-2 md:px-0 {{ $class }}">
-                <nav class="hidden md:flex items-center justify-between text-xs">
-                    <ul class="flex uppercase font-semibold border-b-4 pb-3 space-x-10">
-                        <li><a href="{{ route('idea.index') }}" class="pb-3 border-blue {{ request()->routeIs('idea.index') ? 'border-b-4' : '' }}"">All Ideas ({{ $ideasTotal }})</a></li>
-                        <li><a href="#" class="text-gray-400 transition duration-150 ease-in border-b-4 pb-3 hover:border-blue">All Challenges (6)</a></li>
+                <nav class="md:flex items-center justify-between text-xs">
+                    <ul class="flex border-b tab-buttons uppercase">
+                        <li class="mr-1">
+                            <a href="{{ route('idea.index') }}" data-tab-index="0" class="tab-item bg-white inline-block py-2 px-4 border-l border-t border-r rounded-t text-blue-500 hover:text-blue-800 font-semibold {{ request()->routeIs('idea.index') ? 'border-b-4 border-blue' : '' }}">All Ideas {{ !request()->routeIs('challenges.index') ? '('.$ideasTotal.')' : '' }}</a>
+                        </li>
+                        <li class="-mb-px mr-1">
+                            <a href="{{ route('challenges.index') }}" data-tab-index="2" class="tab-item bg-white inline-block py-2 px-4 border-l border-t border-r rounded-t text-blue-700 font-semibold {{ request()->routeIs('challenges.index') ? 'border-b-4 border-blue' : '' }}">All Challenges {{ !request()->routeIs('idea.index') ? '('.$ideasTotal.')' : ''}}</a>
+                        </li>
                         @auth
-                            <li><a href="{{ route('favourites.list') }}" class="text-gray-400 transition duration-150 ease-in pb-3 hover:border-blue {{ request()->routeIs('favourites.list') ? 'border-blue border-b-4' : '' }}">Favorite</a></li>
+                        <li class="mr-1">
+                            <a href="{{ route('favourites.list') }}" data-tab-index="1" class="tab-item bg-white inline-block py-2 px-4 border-l border-t border-r rounded-t text-blue-500 hover:text-blue-800 font-semibold {{ request()->routeIs('favourites.list') ? 'border-blue border-b-4' : '' }}">Favorite</a>
+                        </li>
                         @endauth
                     </ul>
                 </nav>

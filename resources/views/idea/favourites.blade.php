@@ -6,7 +6,7 @@
 
     <div class="ideas-container space-y-6 my-8">
         <x-alerts></x-alerts>
-        <div class="-mx-4 sm:-mx-8 px-4 sm:px-8 py-4 overflow-x-auto">
+        {{-- <div class="-mx-4 sm:-mx-8 px-4 sm:px-8 py-4 overflow-x-auto">
             <div class="inline-block w-full shadow rounded-lg overflow-hidden">
                 <table class="min-w-full leading-normal">
                     <thead>
@@ -72,7 +72,17 @@
                 </table>
             </div>
             {{ $favs->appends(request()->all())->links() }}
-        </div>
+        </div> --}}
+        @forelse ($favs as $idea)
+            <livewire:idea-index
+                :idea="$idea"
+                :votesCount="$idea->votes_count"
+                :commentsCount="$idea->comments_count"
+            />
+        @empty
+        <h3 class="text-center text-xl font-semibold">
+            No Idea's found.
+        </h3>
+        @endforelse
     </div> <!-- end ideas-container -->
-
 </x-app-layout>

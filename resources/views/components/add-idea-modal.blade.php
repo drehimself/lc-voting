@@ -3,7 +3,7 @@
     style="z-index: 9999999"
     x-cloak
     :class="{hidden : addIdeaModal === false}"
-    x-data="{addIdeaModal : false}"
+    x-data="{addIdeaModal : false,isChallengePage : '{{ request()->routeIs('challenges.index') }}'}"
     x-on:show-add-idea-modal.window="addIdeaModal = true">
     <!-- modal -->
     <div class="bg-white rounded shadow-lg w-10/12 md:w-1/3  border-2 border-blue"
@@ -11,7 +11,7 @@
       x-show.transition.duration.700ms="addIdeaModal">
       <!-- modal header -->
         <div class="border-b px-4 py-2 flex justify-between items-center">
-            <h3 class="font-semibold text-base">Add an idea</h3>
+            <h3 class="font-semibold text-base" x-text="isChallengePage ? 'Add a Challenge' : 'Add an idea'"></h3>
             <button class="text-black close-modal"
             @click="addIdeaModal = false">&cross;</button>
         </div>
@@ -21,18 +21,22 @@
                 class="bg-white md:sticky md:top-8"
                 style="">
                 <div class="text-center px-6 py-2 pt-6">
-                    {{-- <h3 class="font-semibold text-base">Add an idea</h3> --}}
                     <p class="text-sm mt-4">
                         @auth
                             Let us know what you would like and we'll take a look over!
                         @else
-                            Please login to create an idea.
+                            Please login to create an idea/challenge.
                         @endauth
                     </p>
                 </div>
                 @auth
-                    <livewire:create-idea 
-                    :categories="$categories"/>
+                    @if (request()->routeIs('challenges.index'))
+                        <livewire:challenges.challenge-create 
+                            :categories="$categories"/>
+                    @else
+                        <livewire:create-idea 
+                            :categories="$categories"/>
+                    @endif
                 @else
                     <div class="my-6 text-center">
                         <a
