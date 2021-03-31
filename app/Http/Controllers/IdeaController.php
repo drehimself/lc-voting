@@ -142,11 +142,16 @@ class IdeaController extends Controller
      * 
      */
     public function showFavourites()
-    {
-        $favs = auth()->user()->favourites()->latest()->paginate();
+    {   
+        if (!request()->has('filter')  || (request()->filter == '') || (request()->filter == 'idea')) {
+            $favs = auth()->user()->favourites()->latest()->paginate();
+        }
+        else {
+            $favs = auth()->user()->challenges_favourites()->latest()->paginate();
+        }
 
         return view('idea.favourites', [
-            'ideasCount' => Idea::count(),
+            'ideasCount' => null,
             'categories' => Category::all(),
             'favs' => $favs,
         ]);

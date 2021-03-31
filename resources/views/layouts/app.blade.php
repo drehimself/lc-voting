@@ -83,14 +83,21 @@
                 <nav class="md:flex items-center justify-between text-xs">
                     <ul class="flex border-b tab-buttons uppercase">
                         <li class="mr-1">
-                            <a href="{{ route('idea.index') }}" data-tab-index="0" class="tab-item bg-white inline-block py-2 px-4 border-l border-t border-r rounded-t text-blue-500 hover:text-blue-800 font-semibold {{ request()->routeIs('idea.index') ? 'border-b-4 border-blue' : '' }}">All Ideas {{ !request()->routeIs('challenges.index') ? '('.$ideasTotal.')' : '' }}</a>
+                            {{-- {{ dd(request()->is('challenges')) }} --}}
+                            <a href="{{ route('idea.index') }}" data-tab-index="0" 
+                                class="tab-item bg-white inline-block py-2 px-4 border-l border-t border-r rounded-t text-blue-500 hover:text-blue-800 font-semibold 
+                                    {{ request()->is('ideas/*') || request()->routeIs('idea.index') ? 'border-b-4 border-blue' : '' }}">All Ideas {{ !request()->routeIs('challenges.index') && !request()->routeIs('favourites.list') && !request()->is('challenges/*') ? '('.$ideasTotal.')' : '' }}</a>
                         </li>
                         <li class="-mb-px mr-1">
-                            <a href="{{ route('challenges.index') }}" data-tab-index="2" class="tab-item bg-white inline-block py-2 px-4 border-l border-t border-r rounded-t text-blue-700 font-semibold {{ request()->routeIs('challenges.index') ? 'border-b-4 border-blue' : '' }}">All Challenges {{ !request()->routeIs('idea.index') ? '('.$ideasTotal.')' : ''}}</a>
+                            <a href="{{ route('challenges.index') }}" data-tab-index="2" 
+                                class="tab-item bg-white inline-block py-2 px-4 border-l border-t border-r rounded-t text-blue-700 font-semibold 
+                                    {{ request()->is('challenges/*') || request()->routeIs('challenges.index') ? 'border-b-4 border-blue' : '' }}">All Challenges {{ !request()->routeIs('idea.index') && !request()->routeIs('favourites.list') && !request()->is('ideas/*')  ? '('.$ideasTotal.')' : ''}}</a>
                         </li>
                         @auth
                         <li class="mr-1">
-                            <a href="{{ route('favourites.list') }}" data-tab-index="1" class="tab-item bg-white inline-block py-2 px-4 border-l border-t border-r rounded-t text-blue-500 hover:text-blue-800 font-semibold {{ request()->routeIs('favourites.list') ? 'border-blue border-b-4' : '' }}">Favorite</a>
+                            <a href="{{ route('favourites.list') }}" data-tab-index="1" 
+                                class="tab-item bg-white inline-block py-2 px-4 border-l border-t border-r rounded-t text-blue-500 hover:text-blue-800 font-semibold 
+                                    {{ request()->routeIs('favourites.list') ? 'border-blue border-b-4' : '' }}">Favorite</a>
                         </li>
                         @endauth
                     </ul>
