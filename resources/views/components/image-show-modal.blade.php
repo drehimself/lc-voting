@@ -19,7 +19,7 @@
       <!-- modal body -->
         <div class="">
             <div class="bg-white md:sticky md:top-8">
-                <img :src="imagePreview" alt="" class="object-none h-full w-full">
+                <img :src="imagePreview" alt="" class="h-full w-full">
             </div>
         </div>
     </div>
