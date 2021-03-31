@@ -36,8 +36,8 @@ class ChallengeCreate extends Component
             $this->validate();
 
             if ($this->file != '') {
-                if ($this->file->getSize() > 1000000) {
-                    session()->flash('error', 'File Cannot be greater then 1MB');
+                if ($this->file->getSize() > 10000000) {
+                    session()->flash('error', 'File Cannot be greater then 10MB');
                     return;
                 }
                 $file = $this->file->storeAs('challenge-photos', time() . rand() . '.' . $this->file->getClientOriginalExtension(), 'public');
