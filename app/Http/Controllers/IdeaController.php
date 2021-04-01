@@ -44,10 +44,14 @@ class IdeaController extends Controller
                             $role = 2;
                             break;
                     }
-
-                    return $query->whereHas('user',function($query) use ($role) {
-                        return $query->where('role_id',$role);
-                    });
+                    if (request()->source == 'self' && auth()->check()) {
+                        return $query->where('user_id',auth()->user()->id);
+                    }
+                    else {
+                        return $query->whereHas('user',function($query) use ($role) {
+                            return $query->where('role_id',$role);
+                        });
+                    }
                 })
                 ->when(request()->other_filters, function ($query) {
                     if (request()->other_filters == 'popular') {

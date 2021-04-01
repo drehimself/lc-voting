@@ -21,6 +21,9 @@
                 <option value="user" {{ isSelected('source','user') }}>User</option>
                 <option value="admin" {{ isSelected('source','admin') }}>Admin</option>
                 <option value="brand" {{ isSelected('source','brand') }}>Brands</option>
+                @auth
+                    <option value="self" {{ isSelected('source','self') }}>Self</option>
+                @endauth
             </select>
         </div>
         
