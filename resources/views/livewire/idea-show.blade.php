@@ -34,7 +34,7 @@
                             </div>
                             <div>&bull;</div>
                             <div x-data="{isSpammed : '{{ $hasMarkedSpam }}'}">
-                                <span wire:click.prevent="markAsSpam('{{ $idea->id }}')">
+                                <span wire:click.prevent="markAsSpam('{{ $idea->id }}')" title="Report Abuse">
                                     <i class="fa fa-flag" style="font-size:18px;cursor: pointer;   " :class="{'text-red' : isSpammed == true}"></i>
                                 </span>
                             </div>
