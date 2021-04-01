@@ -17,7 +17,7 @@
                 <li class="list-group-item">3) Use more front-end theme like AdminLTE/StartBootstrap admin theme</li>
                 <li class="list-group-item">4) Email notification: send email whenever new user is entered/added/registered (only type user can register from register form admin can only be made by super admin) (use Mailgun or Mailtrap)</li>
                 <li class="list-group-item">5) Make the project multi-language (using resources/lang folder)</li>
-                <li class="list-group-item">6) <a href="https://jsonplaceholder.typicode.com/">API</a> use this api to fetch data and display on page only fetch posts with related comments</li>
+                <li class="list-group-item">6) <a href="https://jsonplaceholder.typicode.com/" style="color:red;font-weight:600">API</a> use this api to fetch data and display on page only fetch posts with related comments</li>
             </ul>
         </div>
     </main>
