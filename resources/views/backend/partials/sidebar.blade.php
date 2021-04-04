@@ -44,14 +44,14 @@
         </a>
     </li>
     @endif
-    @if (auth()->user()->isUser())
+    {{-- @if (auth()->user()->isUser()) --}}
     <!-- User Ideas -->
     <div class="sidebar-heading">
         Ideas
     </div>
     <!-- Nav Item - Idea List -->
     <li class="nav-item">
-        <a class="nav-link" href="{{ route('backend.idea.index') }}">
+        <a class="nav-link" href="{{ route('backend.idea-backend.index') }}">
             <i class="fas fa-fw fa-lightbulb"></i>
             <span>Idea</span>
         </a>
@@ -62,12 +62,12 @@
     </div>
     <!-- Nav Item - Idea List -->
     <li class="nav-item">
-        <a class="nav-link" href="{{ route('backend.challenges.index') }}">
+        <a class="nav-link" href="{{ route('backend.challenges-backend.index') }}">
             <i class="fas fa-fw fa-tasks"></i>
             <span>Challenges List</span>
         </a>
     </li>
-    @endif
+    {{-- @endif --}}
     <!-- Nav Item - Utilities Collapse Menu -->
     {{-- <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities"

@@ -26,7 +26,7 @@ Route::group(['middleware' => ['auth']], function () {
 
     // User Route
     Route::group(['as'=>'backend.'], function () {
-        Route::resource('idea', IdeaController::class);
-        Route::resource('challenges', ChallengesController::class);
+        Route::resource('idea-backend', IdeaController::class);
+        Route::resource('challenges-backend', ChallengesController::class);
     });
 });

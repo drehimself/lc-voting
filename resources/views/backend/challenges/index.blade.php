@@ -25,7 +25,7 @@
                                 <td>{{ $challenge->category->name }}</td>
                                 <td>{{ $challenge->created_at->format('m/d/Y') }}</td>
                                 <td>
-                                    <a href="{{ route('backend.challenges.edit',['challenge'=>$challenge->id]) }}" class="btn btn-info">Edit</a>
+                                    <a href="{{ route('backend.challenges-backend.edit',['challenges_backend'=>$challenge->id]) }}" class="btn btn-info">Edit</a>
 
                                 </td>
                             </tr>

@@ -8,7 +8,7 @@
         <h6 class="m-0 font-weight-bold text-primary">Edit Idea</h6>
     </div>
     <div class="card-body">
-        <form action="{{ route('backend.idea.update',['idea'=>$idea->id]) }}" method="POST"
+        <form action="{{ route('backend.idea-backend.update',['idea_backend' => $idea->id]) }}" method="POST"
             enctype="multipart/form-data">
             @csrf
             @method('PUT')

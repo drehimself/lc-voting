@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers\Backend;
 
-use App\Http\Controllers\Controller;
 use App\Models\Category;
 use App\Models\Challenge;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
@@ -20,7 +20,7 @@ class ChallengesController extends Controller
     public function index()
     {
         Paginator::useBootstrap();
-        $challenges=Challenge::where('user_id', Auth::id())->with(['category'])->latest()->paginate();
+        $challenges = Challenge::where('user_id', Auth::id())->with(['category'])->latest()->paginate();
         return view('backend.challenges.index', get_defined_vars());
     }
 
@@ -62,9 +62,10 @@ class ChallengesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(Challenge $challenge)
+    public function edit($challenge)
     {
-        $category=Category::all();
+        $challenge = Challenge::where('user_id', Auth::id())->where('id', $challenge)->firstOrFail();
+        $category = Category::all();
         return view('backend.challenges.edit', get_defined_vars());
     }
 
@@ -75,26 +76,29 @@ class ChallengesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request,Challenge $challenge)
+    public function update(Request $request, $challenge)
     {
         $request->validate([
-            'title'=>'required',
-            'description'=>'required',
-            'category_id'=>'required',
+            'title'      => 'required',
+            'description'=> 'required',
+            'category_id'=> 'required',
         ]);
-        $challenge->title=$request->title;
-        $challenge->description=$request->description;
-        $challenge->category_id=$request->category_id;
+
+        $challenge = Challenge::where('user_id', Auth::id())->where('id', $challenge)->firstOrFail();
+
+        $challenge->title = $request->title;
+        $challenge->description = $request->description;
+        $challenge->category_id = $request->category_id;
 
         if ($request->hasFile('file')) {
             if (file_exists(public_path($request->old_file))) {
                 File::delete(public_path($request->old_file));
             }
-            $file_name = time().rand().'.'.$request->file->extension();
-            $request->file->move(public_path('/challenge-photos/'), $file_name);
-            $challenge->files='/challenge-photos/'.$file_name;
+            $challenge->files = $request->file->storeAs('challenge-photos', time() . rand() . '.' . $request->file->getClientOriginalExtension(), 'public');
         }
-       $res= $challenge->save();
+
+        $res = $challenge->save();
+
         if ($res) {
             return back()->with('success', 'Challenge Updated Successfully');
         } else {

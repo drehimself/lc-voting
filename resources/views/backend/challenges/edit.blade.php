@@ -8,7 +8,7 @@
         <h6 class="m-0 font-weight-bold text-primary">Edit Challenge</h6>
     </div>
     <div class="card-body">
-        <form action="{{ route('backend.challenges.update',['challenge'=>$challenge->id]) }}" method="POST"
+        <form action="{{ route('backend.challenges-backend.update',['challenges_backend'=>$challenge->id]) }}" method="POST"
             enctype="multipart/form-data">
             @csrf
             @method('PUT')
@@ -65,7 +65,7 @@
             <div class="col-md-12">
                 <div class="form-group">
                     <button class="btn btn-primary" type="submit">Update</button>
-                    <a href="{{ route('idea.index') }}" class="btn btn-danger">Back</a>
+                    <a href="{{ route('backend.challenges-backend.index') }}" class="btn btn-danger">Back</a>
                 </div>
             </div>
         </form>

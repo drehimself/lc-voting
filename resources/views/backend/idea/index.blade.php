@@ -25,7 +25,7 @@
                                 <td>{{ $idea->category->name }}</td>
                                 <td>{{ $idea->created_at->format('m/d/Y') }}</td>
                                 <td>
-                                    <a href="{{ route('backend.idea.edit',['idea'=>$idea->id]) }}" class="btn btn-info">Edit</a>
+                                    <a href="{{ route('backend.idea-backend.edit',['idea_backend'=>$idea->id]) }}" class="btn btn-info">Edit</a>
 
                                 </td>
                             </tr>
