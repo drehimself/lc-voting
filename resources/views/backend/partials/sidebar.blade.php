@@ -23,12 +23,12 @@
     <hr class="sidebar-divider">
 
     @if (auth()->user()->isAdmin())
-        
+
     <!-- Users -->
     <div class="sidebar-heading">
         Users
     </div>
-    
+
     <!-- Nav Item - Users -->
     <li class="nav-item">
         <a class="nav-link" href="{{ route('users.index') }}">
@@ -44,7 +44,30 @@
         </a>
     </li>
     @endif
-
+    @if (auth()->user()->isUser())
+    <!-- User Ideas -->
+    <div class="sidebar-heading">
+        Ideas
+    </div>
+    <!-- Nav Item - Idea List -->
+    <li class="nav-item">
+        <a class="nav-link" href="{{ route('backend.idea.index') }}">
+            <i class="fas fa-fw fa-lightbulb"></i>
+            <span>Idea</span>
+        </a>
+    </li>
+    <!-- User Ideas -->
+    <div class="sidebar-heading">
+        Challenges
+    </div>
+    <!-- Nav Item - Idea List -->
+    <li class="nav-item">
+        <a class="nav-link" href="{{ route('backend.challenges.index') }}">
+            <i class="fas fa-fw fa-tasks"></i>
+            <span>Challenges List</span>
+        </a>
+    </li>
+    @endif
     <!-- Nav Item - Utilities Collapse Menu -->
     {{-- <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities"
@@ -73,7 +96,7 @@
     </div>
 
     <!-- Nav Item - Pages Collapse Menu -->
-    
+
 
     <!-- Divider -->
     <hr class="sidebar-divider d-none d-md-block">
