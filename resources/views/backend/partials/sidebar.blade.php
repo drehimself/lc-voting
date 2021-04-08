@@ -43,6 +43,13 @@
             <span>Spam</span>
         </a>
     </li>
+
+    <li class="nav-item">
+        <a href="{{ route('home') }}" class="nav-link">
+            <i class="far fa-angry"></i>
+            <span>Biz Tools</span>
+        </a>
+    </li>
     @endif
     {{-- @if (auth()->user()->isUser()) --}}
     <!-- User Ideas -->

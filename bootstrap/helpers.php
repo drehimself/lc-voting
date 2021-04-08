@@ -39,3 +39,38 @@ function formatBytes($bytes, $force_unit = NULL, $format = NULL, $si = TRUE)
 
     return sprintf($format, $bytes / pow($mod, $power), $units[$power]);
 }
+// BIZ Helpers
+function moneyFormat($num)
+{
+    return number_format($num);
+}
+
+function setTheQueryStringForViewToggle ()
+{
+    if (request()->view == '') {
+        return 'kanban';
+    }
+
+    $state = request()->view == 'kanban' ? 'list' : 'kanban';
+
+    return $state;
+}
+
+function status($num)
+{
+    switch ($num) {
+        case '1':
+            return 'high';
+            break;
+        case '2':
+            return 'medium';
+            break;
+        case '3':
+            return 'low';
+            break;
+        
+        default:
+            return 'Not Found';
+            break;
+    }
+}

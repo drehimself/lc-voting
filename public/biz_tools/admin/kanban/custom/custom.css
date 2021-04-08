@@ -1,0 +1,177 @@
+    #myKanban {
+    overflow-x: auto;
+    padding: 20px 0;
+    }
+    .kanban-board {
+    margin-left : 0px!important;
+    width: 400px!important;
+    }
+    .success {
+    background: #00b961;
+    }
+    .info {
+    background: #2a92bf;
+    }
+    .warning {
+    background: #f4ce46;
+    }
+    .error {
+    background: #fb7d44;
+    }
+    .custom-button {
+    background-color: #4CAF50;
+    border: none;
+    color: white;
+    padding: 7px 15px;
+    margin: 10px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    }
+    .ck-editor__editable_inline {
+    min-height: 250px;
+    }
+    /* Center the loader */
+    #loader {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    z-index: 1;
+    width: 120px;
+    height: 120px;
+    margin: -76px 0 0 -76px;
+    border: 16px solid #f3f3f3;
+    border-radius: 50%;
+    border-top: 16px solid #3498db;
+    -webkit-animation: spin 2s linear infinite;
+    animation: spin 2s linear infinite;
+    /* background: transparent; */
+    }
+
+    @-webkit-keyframes spin {
+    0% { -webkit-transform: rotate(0deg); }
+    100% { -webkit-transform: rotate(360deg); }
+    }
+
+    @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+    }
+
+    /* Add animation to "page content" */
+    .animate-bottom {
+    position: relative;
+    -webkit-animation-name: animatebottom;
+    -webkit-animation-duration: 1s;
+    animation-name: animatebottom;
+    animation-duration: 1s
+    }
+
+    @-webkit-keyframes animatebottom {
+    from { bottom:-100px; opacity:0 } 
+    to { bottom:0px; opacity:1 }
+    }
+
+    @keyframes animatebottom { 
+    from{ bottom:-100px; opacity:0 } 
+    to{ bottom:0; opacity:1 }
+    }
+    .customButton {
+    box-sizing: border-box;
+    outline: none;
+    margin: 0;
+    font-family: inherit;
+    text-transform: none;
+    font-weight: 400;
+    text-align: center;
+    line-height: 1.5;
+    border-radius: 50%;
+    display: inline-block;
+    overflow: hidden;
+    user-select: none;
+    -webkit-tap-highlight-color: transparent;
+    vertical-align: middle;
+    z-index: 1;
+    transition: all 0.1s ease-out;
+    position: relative;
+    margin-left: 2px;
+    border: 0px;
+    padding: 4px 15px 4px 15px;
+    font-size: 22px;
+    color: #fff;
+    background-color: #dc3545;
+    border-color: #dc3545;
+    border: 1px solid #ff5c6c;
+    height: 49px;
+    cursor: pointer;
+    box-shadow: 0 3px 15px -2px rgb(37 45 51 / 40%);
+    transition: all ease-in .15s;
+    float: right;
+    outline:none;
+}
+.customButton2 {
+    box-sizing: border-box;
+    outline: none;
+    margin: 3px 0px 0px 0px;
+    font-family: inherit;
+    text-transform: none;
+    font-weight: 400;
+    text-align: center;
+    line-height: 1.5;
+    border-radius: .25rem;
+    display: inline-block;
+    overflow: hidden;
+    user-select: none;
+    -webkit-tap-highlight-color: transparent;
+    vertical-align: middle;
+    z-index: 1;
+    transition: all 0.1s ease-out;
+    position: relative;
+    margin-right: 5px;
+    border: 0px;
+    padding: 5px 15px 4px 15px;
+    font-size: 22px;
+    height: 47px;
+    background-color: #e4f1ff !important;
+    color: #20aee3 !important;
+    cursor: pointer;
+    float: right;
+    box-shadow: 0 3px 15px -2px rgb(37 45 51 / 40%);
+    transition: all ease-in .15s;
+}
+.customButton3 {
+    box-sizing: border-box;
+    outline: none;
+    margin: 3px 0px 0px 0px;
+    font-family: inherit;
+    text-transform: none;
+    font-weight: 400;
+    text-align: center;
+    line-height: 1.5;
+    border-radius: .25rem;
+    display: inline-block;
+    overflow: hidden;
+    user-select: none;
+    -webkit-tap-highlight-color: transparent;
+    vertical-align: middle;
+    z-index: 1;
+    transition: all 0.1s ease-out;
+    position: relative;
+    margin-right: 5px;
+    border: 0px;
+    padding: 5px 15px 4px 15px;
+    font-size: 22px;
+    height: 47px;
+    background: #20aee3;
+    border: 1px solid #20aee3;
+    color:white !important;
+    cursor: pointer;
+    float: right;
+    box-shadow: 0 3px 15px -2px rgb(37 45 51 / 40%);
+    transition: all ease-in .15s;
+}
+
+*:focus {
+    outline: 0 !important;
+}

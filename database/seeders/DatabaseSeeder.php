@@ -5,7 +5,6 @@ namespace Database\Seeders;
 use App\Models\Category;
 use App\Models\Comment;
 use App\Models\Idea;
-use App\Models\Status;
 use App\Models\User;
 use App\Models\Vote;
 use Illuminate\Database\Seeder;
@@ -19,6 +18,8 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
+        $this->call(DefaultGenericSeeder::class);
+        
         User::factory()->create([
             'name' => 'Admin',
             'email' => 'admin@admin.com',
