@@ -113,7 +113,7 @@ class ShowIdeasTest extends TestCase
         $response = $this->get(route('idea.show', $ideaTwo));
 
         $response->assertSuccessful();
-        $this->assertTrue(request()->path() === 'ideas/my-first-idea-1');
+        $this->assertTrue(request()->path() === 'ideas/my-first-idea-2');
     }
 
     /** @test */

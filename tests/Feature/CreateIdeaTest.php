@@ -120,7 +120,7 @@ class CreateIdeaTest extends TestCase
 
         $this->assertDatabaseHas('ideas', [
             'title' => 'My First Idea',
-            'slug' => 'my-first-idea-1'
+            'slug' => 'my-first-idea-2'
         ]);
     }
 }
