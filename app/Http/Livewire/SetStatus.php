@@ -21,7 +21,7 @@ class SetStatus extends Component
 
     public function setStatus()
     {
-        if (! auth()->check() || ! auth()->user()->isAdmin()) {
+        if (auth()->guest() || ! auth()->user()->isAdmin()) {
             abort(Response::HTTP_FORBIDDEN);
         }
 
