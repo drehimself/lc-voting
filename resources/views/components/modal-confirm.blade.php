@@ -17,7 +17,7 @@
         $nextTick(() => $refs.confirmButton.focus())
     "
     x-init="
-        window.livewire.on('{{ $eventToCloseModal }}', () => {
+        Livewire.on('{{ $eventToCloseModal }}', () => {
             isOpen = false
         })
     "
