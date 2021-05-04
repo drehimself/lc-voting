@@ -6,7 +6,7 @@
             </a>
         </div>
         <div class="w-full md:mx-4">
-            <div class="text-gray-600 line-clamp-3">
+            <div class="text-gray-600">
                 {{ $comment->body }}
             </div>
 
@@ -14,6 +14,11 @@
                 <div class="flex items-center text-xs text-gray-400 font-semibold space-x-2">
                     <div class="font-bold text-gray-900">{{ $comment->user->name }}</div>
                     <div>&bull;</div>
+                    {{-- @if ($comment->user->id === $comment->idea->user->id) --}}
+                    @if ($comment->user->id === $ideaUserId)
+                        <div class="rounded-full border bg-gray-100 px-3 py-1">OP</div>
+                        <div>&bull;</div>
+                    @endif
                     <div>{{ $comment->created_at->diffForHumans() }}</div>
                 </div>
                 <div
