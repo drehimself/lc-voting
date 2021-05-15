@@ -4,6 +4,7 @@ namespace Tests\Feature\Filters;
 
 use App\Http\Livewire\IdeasIndex;
 use App\Models\Category;
+use App\Models\Comment;
 use App\Models\Idea;
 use App\Models\User;
 use App\Models\Vote;
@@ -200,6 +201,43 @@ class OtherFiltersTest extends TestCase
                     && $ideas->first()->title === 'Idea Three'
                     && $ideas->get(1)->title === 'Idea Two'
                     && $ideas->get(2)->title === 'Idea One';
+            });
+    }
+
+    /** @test */
+    public function spam_comments_filter_works()
+    {
+        $user = User::factory()->admin()->create();
+
+        $ideaOne = Idea::factory()->create([
+            'title' => 'Idea One',
+        ]);
+
+        $ideaTwo = Idea::factory()->create([
+            'title' => 'Idea Two',
+        ]);
+
+        $ideaThree = Idea::factory()->create([
+            'title' => 'Idea Two',
+        ]);
+
+        $commentOne = Comment::factory()->create([
+            'idea_id' => $ideaOne->id,
+            'body' => 'This is my first comment',
+            'spam_reports' => 3,
+        ]);
+
+        $commentTwo = Comment::factory()->create([
+            'idea_id' => $ideaTwo->id,
+            'body' => 'This is my second comment',
+            'spam_reports' => 2,
+        ]);
+
+        Livewire::actingAs($user)
+            ->test(IdeasIndex::class)
+            ->set('filter', 'Spam Comments')
+            ->assertViewHas('ideas', function ($ideas) {
+                return $ideas->count() === 2;
             });
     }
 }

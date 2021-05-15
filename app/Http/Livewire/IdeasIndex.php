@@ -79,6 +79,10 @@ class IdeasIndex extends Component
                     return $query->where('user_id', auth()->id());
                 })->when($this->filter && $this->filter === 'Spam Ideas', function ($query) {
                     return $query->where('spam_reports', '>', 0)->orderByDesc('spam_reports');
+                })->when($this->filter && $this->filter === 'Spam Comments', function ($query) {
+                    return $query->whereHas('comments', function ($query) {
+                        $query->where('spam_reports', '>', 0);
+                    });
                 })->when(strlen($this->search) >= 3, function ($query) {
                     return $query->where('title', 'like', '%'.$this->search.'%');
                 })
