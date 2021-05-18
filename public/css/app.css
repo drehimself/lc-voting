@@ -25623,14 +25623,14 @@ select {
   position: absolute;
   display: block;
   top: 60px;
-  left: -40px;
+  left: -38px;
   content: "";
   width: 3px;
   height: calc(100% - 60px);
   background: #f7f8fc;
 }
 
-.is-admin::before {
+.is-status-update::before {
   position: absolute;
   width: 38px;
   height: 38px;
@@ -25640,15 +25640,49 @@ select {
   left: -58px;
   background: #8b60ed;
   opacity: 1;
+  z-index: 1;
 }
 
-.is-admin {
+.is-status-update {
   border-width: 1px;
   border-image-source: linear-gradient(266deg, #21c8f6 98%, #637bff -52%);
   border-image-slice: 1;
   background-image: linear-gradient(to bottom, #ffffff, #ffffff), linear-gradient(266deg, #21c8f6 98%, #637bff -52%);
   background-origin: border-box;
   background-clip: content-box, border-box;
+}
+
+.status-open, .status-open:before {
+  --tw-bg-opacity: 1;
+  background-color: rgba(229, 229, 229, var(--tw-bg-opacity));
+}
+
+.status-considering, .status-considering:before {
+  --tw-bg-opacity: 1;
+  background-color: rgba(139, 96, 237, var(--tw-bg-opacity));
+  --tw-text-opacity: 1;
+  color: rgba(255, 255, 255, var(--tw-text-opacity));
+}
+
+.status-in-progress, .status-in-progress:before {
+  --tw-bg-opacity: 1;
+  background-color: rgba(255, 199, 60, var(--tw-bg-opacity));
+  --tw-text-opacity: 1;
+  color: rgba(255, 255, 255, var(--tw-text-opacity));
+}
+
+.status-implemented, .status-implemented:before {
+  --tw-bg-opacity: 1;
+  background-color: rgba(26, 171, 139, var(--tw-bg-opacity));
+  --tw-text-opacity: 1;
+  color: rgba(255, 255, 255, var(--tw-text-opacity));
+}
+
+.status-closed, .status-closed:before {
+  --tw-bg-opacity: 1;
+  background-color: rgba(236, 69, 79, var(--tw-bg-opacity));
+  --tw-text-opacity: 1;
+  color: rgba(255, 255, 255, var(--tw-text-opacity));
 }
 
 @media (min-width: 640px) {

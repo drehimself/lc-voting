@@ -55,8 +55,8 @@ class StatusFiltersTest extends TestCase
     public function filtering_works_when_query_string_in_place()
     {
         $statusOpen = Status::factory()->create(['name' => 'Open']);
-        $statusConsidering = Status::factory()->create(['name' => 'Considering', 'classes' => 'bg-purple text-white']);
-        $statusInProgress = Status::factory()->create(['name' => 'In Progress', 'classes' => 'bg-yellow text-white']);
+        $statusConsidering = Status::factory()->create(['name' => 'Considering']);
+        $statusInProgress = Status::factory()->create(['name' => 'In Progress']);
         $statusImplemented = Status::factory()->create(['name' => 'Implemented']);
         $statusClosed = Status::factory()->create(['name' => 'Closed']);
 

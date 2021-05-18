@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Status;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -20,5 +21,10 @@ class Comment extends Model
     public function idea()
     {
         return $this->belongsTo(Idea::class);
+    }
+
+    public function status()
+    {
+        return $this->belongsTo(Status::class);
     }
 }

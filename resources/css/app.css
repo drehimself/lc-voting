@@ -35,14 +35,14 @@
     position: absolute;
     display: block;
     top: 60px;
-    left: -40px;
+    left: -38px;
     content: "";
     width: 3px;
     height: calc(100% - 60px);
     background: theme('colors.gray-background');
 }
 
-.is-admin::before {
+.is-status-update::before {
     position: absolute;
     width: 38px;
     height: 38px;
@@ -52,13 +52,34 @@
     left: -58px;
     background: theme('colors.purple');
     opacity: 1;
+    z-index: 1;
 }
 
-.is-admin {
+.is-status-update {
     border-width: 1px;
     border-image-source: linear-gradient(266deg, #21c8f6 98%, #637bff -52%);
     border-image-slice: 1;
     background-image: linear-gradient(to bottom, #ffffff, #ffffff), linear-gradient(266deg, #21c8f6 98%, #637bff -52%);
     background-origin: border-box;
     background-clip: content-box, border-box;
+}
+
+.status-open, .status-open:before {
+    @apply bg-gray-200;
+}
+
+.status-considering, .status-considering:before {
+    @apply bg-purple text-white;
+}
+
+.status-in-progress, .status-in-progress:before {
+    @apply bg-yellow text-white;
+}
+
+.status-implemented, .status-implemented:before {
+    @apply bg-green text-white;
+}
+
+.status-closed, .status-closed:before {
+    @apply bg-red text-white;
 }
