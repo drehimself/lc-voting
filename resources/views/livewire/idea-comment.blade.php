@@ -42,7 +42,7 @@
                 </div>
                 @auth
                 <div
-                    class="flex items-center space-x-2"
+                    class="text-gray-900 flex items-center space-x-2"
                     x-data="{ isOpen: false }"
                 >
                     <div class="relative">

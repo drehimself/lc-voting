@@ -25604,6 +25604,10 @@ select {
   background: #edf0f5;
 }
 
+.is-status-update.comment-container:last-child::after {
+  left: -41px;
+}
+
 /* horizontal line to the left of the comments */
 
 .comment-container::before {
@@ -25623,7 +25627,7 @@ select {
   position: absolute;
   display: block;
   top: 60px;
-  left: -38px;
+  left: -40px;
   content: "";
   width: 3px;
   height: calc(100% - 60px);
