@@ -37,7 +37,7 @@
                     type="submit"
                     class="flex items-center justify-center w-1/2 h-11 text-xs bg-blue text-white font-semibold rounded-xl border border-blue hover:bg-blue-hover transition duration-150 ease-in px-6 py-3"
                 >
-                    <span class="ml-1">Submit</span>
+                    <span>Submit</span>
                 </button>
             </div>
         </form>
